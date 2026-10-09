@@ -1,0 +1,5565 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhojan Bandhu POS — User Manual</title>
+<script src="tailwind.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-feature-settings: "cv02","cv03","cv04"; }
+
+  /* ---------- content typography ---------- */
+  .content { color: #1e293b; line-height: 1.75; font-size: 16.5px; }
+  .content > *:first-child { margin-top: 0; }
+
+  .content h1 {
+    font-size: 2.1rem; font-weight: 800; letter-spacing: -0.02em;
+    color: #0f172a; margin: 0 0 .35rem; line-height: 1.2; scroll-margin-top: 1.5rem;
+  }
+  .content h2 {
+    font-size: 1.5rem; font-weight: 700; color: #0f172a;
+    margin: 2.6rem 0 1rem; padding-bottom: .5rem;
+    border-bottom: 2px solid #e2e8f0; scroll-margin-top: 1.5rem;
+  }
+  .content h3 {
+    font-size: 1.15rem; font-weight: 700; color: #1e40af;
+    margin: 1.9rem 0 .6rem; scroll-margin-top: 1.5rem;
+  }
+  .content h4 { font-size: 1rem; font-weight: 700; color: #334155; margin: 1.3rem 0 .4rem; }
+
+  .content p { margin: .65rem 0; }
+  .content a { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; }
+  .content a:hover { color: #1d4ed8; }
+
+  .content ul, .content ol { margin: .6rem 0 1rem; padding-left: 1.5rem; }
+  .content ul { list-style: disc; }
+  .content ol { list-style: decimal; }
+  .content li { margin: .3rem 0; }
+  .content li::marker { color: #64748b; }
+
+  .content table {
+    width: 100%; border-collapse: collapse; font-size: .9rem;
+    margin: 1.1rem 0; display: table; overflow-x: auto;
+  }
+  .content thead th {
+    background: #1e293b; color: #f8fafc; font-weight: 600;
+    text-align: left; padding: .55rem .8rem; border: 1px solid #334155;
+    white-space: nowrap;
+  }
+  .content td { border: 1px solid #cbd5e1; padding: .5rem .8rem; vertical-align: top; }
+  .content tbody tr:nth-child(even) { background: #f8fafc; }
+
+  .content figure { margin: 0; }
+  .content figcaption { display: none; }
+  .content img {
+    max-width: 100%; height: auto; display: block;
+    border: 1px solid #e2e8f0; border-radius: .6rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, .08);
+    margin: .9rem 0 .3rem; background: #fff;
+  }
+  /* figure captions: paragraph that is only an <em> */
+  .content p:has(> em:only-child) {
+    font-size: .86rem; color: #475569; background: #f1f5f9;
+    border-left: 3px solid #94a3b8; padding: .45rem .75rem;
+    border-radius: 0 .4rem .4rem 0; margin-top: 0;
+  }
+
+  .content blockquote {
+    margin: 1.1rem 0; padding: .75rem 1rem; border-radius: .5rem;
+    border-left: 4px solid #3b82f6; background: #eff6ff; color: #334155;
+  }
+  .content blockquote p { margin: .25rem 0; }
+  .content blockquote strong:first-child { color: #1e40af; }
+
+  .content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #f1f5f9; border: 1px solid #e2e8f0; padding: .1rem .35rem;
+    border-radius: .3rem; font-size: .84em; color: #0f172a;
+  }
+  .content pre {
+    background: #0f172a; color: #e2e8f0; padding: 1.1rem 1.2rem;
+    border-radius: .7rem; overflow-x: auto; margin: 1.1rem 0;
+    font-size: .83rem; line-height: 1.55; box-shadow: inset 0 0 0 1px #1e293b;
+  }
+  .content pre code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+
+  .content hr { border: none; border-top: 1px solid #e2e8f0; margin: 2.2rem 0; }
+
+  /* ---------- sidebar ---------- */
+  .nav-link {
+    display: block; padding: .4rem .8rem; border-radius: .45rem;
+    border-left: 3px solid transparent; font-size: .875rem;
+    color: #cbd5e1; transition: all .15s ease;
+  }
+  .nav-link:hover { background: rgba(255,255,255,.07); color: #fff; }
+  .nav-link.h3 { padding-left: 2rem; font-size: .81rem; color: #94a3b8; }
+  .nav-link.active {
+    background: rgba(59,130,246,.18); color: #bfdbfe;
+    border-left-color: #3b82f6; font-weight: 600;
+  }
+
+  /* ---------- print ---------- */
+  @media print {
+    #sidebar, #mobileBar, #printBtn { display: none !important; }
+    #mainWrap { margin: 0 !important; padding: 0 !important; }
+    .content { font-size: 11pt; }
+    .content img { max-width: 100%; box-shadow: none; }
+    .content table { display: table; }
+  }
+</style>
+</head>
+<body class="bg-slate-100 font-sans antialiased">
+
+<!-- ===== mobile top bar ===== -->
+<div id="mobileBar" class="lg:hidden sticky top-0 z-40 flex items-center gap-3 bg-slate-900 px-4 py-3 shadow">
+  <button id="menuBtn" class="rounded-md bg-white/10 p-2 text-slate-100 hover:bg-white/20" aria-label="Open navigation">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <div class="min-w-0">
+    <div class="truncate text-sm font-bold text-white">Bhojan Bandhu POS</div>
+    <div class="truncate text-[11px] text-slate-400">User Manual</div>
+  </div>
+</div>
+
+<!-- ===== sidebar ===== -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col bg-slate-900 shadow-2xl transition-transform duration-200 lg:translate-x-0">
+  <div class="border-b border-slate-700/70 px-5 py-5">
+    <div class="flex items-center gap-3">
+      <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-lg font-black text-white">B</div>
+      <div class="min-w-0">
+        <div class="truncate text-sm font-extrabold tracking-tight text-white">Bhojan Bandhu POS</div>
+        <div class="truncate text-xs text-slate-400">User Manual · v1.0</div>
+      </div>
+    </div>
+    <div class="mt-3 rounded-md bg-slate-800/70 px-3 py-2 text-[11px] leading-relaxed text-slate-400">
+      Restaurant &amp; Franchise Management Platform — October 2026
+    </div>
+  </div>
+
+  <nav id="nav" class="flex-1 space-y-0.5 overflow-y-auto px-3 py-4 text-slate-200"></nav>
+
+  <div class="border-t border-slate-700/70 px-5 py-3 text-[11px] text-slate-500">
+    32 sections · 32 screenshots
+  </div>
+</aside>
+<div id="backdrop" class="fixed inset-0 z-40 hidden bg-black/50 lg:hidden"></div>
+
+<!-- ===== main ===== -->
+<div id="mainWrap" class="lg:ml-72">
+  <div class="mx-auto max-w-5xl px-4 py-6 sm:px-8 sm:py-10">
+    <div class="mb-4 flex items-center justify-end gap-2">
+      <button id="printBtn" class="hidden items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 lg:inline-flex">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-12 0v4h12v-4"/></svg>
+        Print / Save as PDF
+      </button>
+    </div>
+
+    <main id="content" class="content rounded-xl bg-white px-5 py-8 shadow-sm ring-1 ring-slate-200 sm:px-10 sm:py-12">
+<h1 id="bhojan-bandhu-pos-user-manual">Bhojan Bandhu POS — User
+Manual</h1>
+<p><strong>Restaurant &amp; Franchise Management Platform (Churi
+House)</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td><strong>Product</strong></td>
+<td>Bhojan Bandhu POS — Restaurant &amp; Franchise Management
+System</td>
+</tr>
+<tr>
+<td><strong>Product version</strong></td>
+<td>1.0.0</td>
+</tr>
+<tr>
+<td><strong>Documentation version</strong></td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><strong>Documentation date</strong></td>
+<td>October 2026</td>
+</tr>
+<tr>
+<td><strong>Platform</strong></td>
+<td>Web application (browser-based POS) + local Print Service</td>
+</tr>
+<tr>
+<td><strong>Prepared by</strong></td>
+<td>[Your Organization Name]</td>
+</tr>
+<tr>
+<td><strong>Classification</strong></td>
+<td>For internal user training and end-user reference</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>About this manual</strong> This manual teaches you how to use
+the Bhojan Bandhu POS system day to day — from logging in, to billing at
+the counter, to running reports. Every feature documented here exists in
+the product. Features that are not available in your installation are
+marked clearly. Screenshots in this manual were captured directly from
+the running application. Where a screen could not be captured in this
+environment (for example the desktop print-service window), a
+<code>[SCREENSHOT REQUIRED — ...]</code> placeholder marks the spot.</p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li>Introduction
+<ul>
+<li>1.1 What is Bhojan Bandhu POS?</li>
+<li>1.2 Who uses it?</li>
+<li>1.3 What problems does it solve?</li>
+<li>1.4 Key capabilities</li>
+<li>1.5 Product components</li>
+</ul></li>
+<li>System Requirements</li>
+<li>Getting Started
+<ul>
+<li>3.1 Accessing the application</li>
+<li>3.2 Logging in</li>
+<li>3.3 Remember me and sessions</li>
+<li>3.4 Forgot password / password recovery</li>
+<li>3.5 Logging out</li>
+<li>3.6 App lock (lock your screen instantly)</li>
+<li>3.7 Self-registration and onboarding (new franchises)</li>
+<li>3.8 First-time setup checklist</li>
+</ul></li>
+<li>Understanding the Interface
+<ul>
+<li>4.1 The login screen</li>
+<li>4.2 The sidebar (main navigation)</li>
+<li>4.3 The top header</li>
+<li>4.4 Common screen elements</li>
+<li>4.5 Themes, colors and branding</li>
+<li>4.6 Keyboard shortcuts</li>
+</ul></li>
+<li>User Roles and Permissions
+<ul>
+<li>5.1 The seven roles</li>
+<li>5.2 Permission matrix</li>
+<li>5.3 Changing what a role can do</li>
+<li>5.4 Read-only and suspended states</li>
+</ul></li>
+<li>Dashboards</li>
+<li>POS / Billing Terminal
+<ul>
+<li>7.1 Overview and layout</li>
+<li>7.2 Order types</li>
+<li>7.3 Creating a dine-in order step by step</li>
+<li>7.4 Choosing a table and customer</li>
+<li>7.5 Cart operations and order notes</li>
+<li>7.6 Discounts and coupon codes (offers)</li>
+<li>7.7 Taxes on the bill</li>
+<li>7.8 Payments: single payment, split payment, due</li>
+<li>7.9 Saving, holding and printing: Save, Hold, Pay &amp; Print, KOT
+Only, KOT &amp; Print</li>
+<li>7.10 Hold and resume bills</li>
+<li>7.11 Voiding a cart</li>
+<li>7.12 Cash drawer open / close</li>
+<li>7.13 Receiving online orders in the POS</li>
+<li>7.14 Offline billing</li>
+<li>7.15 POS edge cases</li>
+</ul></li>
+<li>Orders
+<ul>
+<li>8.1 Orders list</li>
+<li>8.2 Order statuses</li>
+<li>8.3 Order actions</li>
+<li>8.4 Cancelling an order</li>
+<li>8.5 Orders &amp; Items Summary</li>
+</ul></li>
+<li>Kitchen Display (KDS)</li>
+<li>Menu Management
+<ul>
+<li>10.1 Menu items</li>
+<li>10.2 Categories</li>
+<li>10.3 Bulk upload</li>
+<li>10.4 Menu transfer between branches</li>
+<li>10.5 Combos / Meal Deals</li>
+<li>10.6 Offers &amp; Discounts</li>
+</ul></li>
+<li>Tables and Reservations</li>
+<li>Customers</li>
+<li>Online Ordering and Channels
+<ul>
+<li>13.1 Online Orders board</li>
+<li>13.2 Online Channels (Swiggy, Zomato, Website, WhatsApp)</li>
+<li>13.3 QR Code Ordering</li>
+<li>13.4 Public order tracking</li>
+<li>13.5 Guest menu (QR self-ordering)</li>
+</ul></li>
+<li>Inventory and Supply Chain
+<ul>
+<li>14.1 Inventory items</li>
+<li>14.2 Stock adjustment and stock movements</li>
+<li>14.3 Stock alerts</li>
+<li>14.4 Vendors</li>
+<li>14.5 Purchase orders</li>
+<li>14.6 Stock transfers between branches</li>
+</ul></li>
+<li>Finance
+<ul>
+<li>15.1 Cash Drawer</li>
+<li>15.2 Expenses</li>
+<li>15.3 Refunds and Voids</li>
+<li>15.4 Tax &amp; Compliance (GST)</li>
+<li>15.5 Franchise Payments</li>
+</ul></li>
+<li>Staff Management
+<ul>
+<li>16.1 Employees</li>
+<li>16.2 Shifts</li>
+<li>16.3 Attendance</li>
+<li>16.4 Attendance reports</li>
+</ul></li>
+<li>Reports, Analytics and Data
+<ul>
+<li>17.1 Reports &amp; Analytics</li>
+<li>17.2 Branch Comparison</li>
+<li>17.3 Franchise Comparison</li>
+<li>17.4 Data Export</li>
+<li>17.5 Audit Logs</li>
+</ul></li>
+<li>Administration
+<ul>
+<li>18.1 Users</li>
+<li>18.2 Branches</li>
+<li>18.3 Franchise management (Tenants)</li>
+<li>18.4 Leads &amp; Demos</li>
+<li>18.5 Subscriptions, Plans and Transactions</li>
+<li>18.6 Receipt Settings</li>
+<li>18.7 Settings</li>
+<li>18.8 Advertisements and Ad Creative Builder</li>
+<li>18.9 Recycle Bin</li>
+<li>18.10 Backup &amp; Recovery</li>
+<li>18.11 Integrations</li>
+<li>18.12 WhatsApp Notifications console</li>
+<li>18.13 Offline Reconciliation</li>
+<li>18.14 AI Expansion</li>
+<li>18.15 Help Center</li>
+</ul></li>
+<li>Printing (Churi Print Service)
+<ul>
+<li>19.1 How printing works</li>
+<li>19.2 Installing the print service</li>
+<li>19.3 Choosing printers</li>
+<li>19.4 Test printing</li>
+<li>19.5 Receipt layout settings</li>
+<li>19.6 Printing troubleshooting</li>
+</ul></li>
+<li>Offline Operations</li>
+<li>Notifications</li>
+<li>Error Reference</li>
+<li>Troubleshooting</li>
+<li>Security Best Practices</li>
+<li>Data Management (Export, Backup, Restore, Recycle Bin)</li>
+<li>Frequently Asked Questions</li>
+<li>Glossary</li>
+<li>Support</li>
+<li>Quick Reference Guides</li>
+<li>Role-Specific Guides</li>
+<li>First-Day Checklist</li>
+<li>Known Limitations</li>
+</ol>
+<hr />
+<h2 id="introduction">1. Introduction</h2>
+<h3 id="what-is-bhojan-bandhu-pos">1.1 What is Bhojan Bandhu POS?</h3>
+<p>Bhojan Bandhu POS is a <strong>cloud-based point-of-sale and
+restaurant management system</strong> for restaurants, cafés, QSRs,
+bakeries and cloud kitchens that operate as single outlets or as
+multi-branch franchises.</p>
+<p>It replaces the paper KOT, the billing register, the stock diary and
+the spreadsheet. Staff take orders on screen, the kitchen sees them
+instantly on a display, receipts and KOTs print on thermal printers,
+stock is deducted automatically, and the owner sees live sales — from
+one system.</p>
+<p>The software runs entirely in a web browser. There is no installation
+required for the main application; only the optional local print helper
+(see Section 19) is installed on the billing computer.</p>
+<h3 id="who-uses-it">1.2 Who uses it?</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>User</th>
+<th>Typical day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Platform administrator (Super Admin)</strong></td>
+<td>Manages franchises, plans, integrations, platform settings</td>
+</tr>
+<tr>
+<td><strong>Franchise owner</strong></td>
+<td>Watches all branches, menus, offers, subscriptions, reports</td>
+</tr>
+<tr>
+<td><strong>Branch manager</strong></td>
+<td>Runs the outlet: orders, tables, staff, inventory, reports</td>
+</tr>
+<tr>
+<td><strong>Cashier</strong></td>
+<td>Bills customers, takes payments, handles refunds, manages the cash
+drawer</td>
+</tr>
+<tr>
+<td><strong>Kitchen staff</strong></td>
+<td>Works the kitchen display: accepts, cooks, and marks orders
+ready</td>
+</tr>
+<tr>
+<td><strong>Inventory manager</strong></td>
+<td>Tracks stock, vendors, purchase orders, deliveries</td>
+</tr>
+<tr>
+<td><strong>Accountant</strong></td>
+<td>Revenue, expenses, GST, refunds, settlements, P&amp;L</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-problems-does-it-solve">1.3 What problems does it
+solve?</h3>
+<ul>
+<li><strong>Faster billing</strong> — take and settle an order in
+seconds from one screen, with keyboard shortcuts.</li>
+<li><strong>No lost tickets</strong> — orders flow from counter to
+kitchen screen in real time; KOTs print automatically.</li>
+<li><strong>Controlled stock</strong> — ingredients are deducted from
+inventory when an order enters preparation; low stock raises
+alerts.</li>
+<li><strong>Multi-branch visibility</strong> — owners compare branches;
+managers see only their own outlet.</li>
+<li><strong>Correct taxation</strong> — GST is calculated server-side
+from configured tax rules; inclusive/exclusive handling; GST
+summaries.</li>
+<li><strong>Channel unification</strong> — Swiggy, Zomato, website,
+WhatsApp and QR orders arrive on one board.</li>
+<li><strong>Works during internet outages</strong> — the POS keeps
+billing offline and reconciles later.</li>
+<li><strong>Accountability</strong> — every create/change/delete is
+written to an audit log; deleted records go to a Recycle Bin before
+permanent removal.</li>
+</ul>
+<h3 id="key-capabilities">1.4 Key capabilities</h3>
+<ul>
+<li>Full billing terminal (POS) with dine-in, takeaway and
+delivery-platform order types</li>
+<li>Kitchen Display System (KDS) with real-time tickets and recipe-based
+stock deduction</li>
+<li>Menu, combos, offers/coupons, taxes</li>
+<li>Table management, reservations, QR contactless ordering, public
+order tracking</li>
+<li>Inventory, vendors, purchase orders (with Input GST/ITC tracking),
+branch transfers</li>
+<li>Cash drawer sessions, expenses, refunds/voids, GST compliance
+dashboard</li>
+<li>Staff: employees, shifts, attendance, timesheet reports</li>
+<li>Reports &amp; analytics, branch and franchise comparison, CSV
+export</li>
+<li>Online channel integration (Swiggy, Zomato, Website, WhatsApp),
+settlements and monitoring</li>
+<li>Users, roles and fine-grained permissions; audit logs; recycle bin;
+encrypted backups</li>
+<li>Thermal printing (80 mm receipts and KOTs), branding, receipt
+customization</li>
+<li>Offline billing with sync/reconciliation; real-time
+notifications</li>
+</ul>
+<h3 id="product-components">1.5 Product components</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Component</th>
+<th>What it is</th>
+<th>Where it runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dashboard (web app)</strong></td>
+<td>The main application: POS, kitchen, reports, settings</td>
+<td>Browser (desktop recommended)</td>
+</tr>
+<tr>
+<td><strong>Backend API</strong></td>
+<td>Server that stores data, calculates tax, validates offers, sends
+notifications</td>
+<td>Your hosted server</td>
+</tr>
+<tr>
+<td><strong>Churi Print Service</strong></td>
+<td>Small local helper application that silently prints receipts/KOTs on
+thermal printers</td>
+<td>The billing computer (Windows/macOS/Linux)</td>
+</tr>
+<tr>
+<td><strong>Public pages</strong></td>
+<td>Order tracking (<code>/track/&lt;order number&gt;</code>) and guest
+QR menu (<code>/guest-menu</code>)</td>
+<td>Browser (customer’s phone)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="system-requirements">2. System Requirements</h2>
+<p>Bhojan Bandhu POS is <strong>browser-based</strong>.
+Requirements:</p>
+<h3 id="recommended-for-billing-terminals-pos">Recommended for billing
+terminals (POS)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser</td>
+<td>Google Chrome or Microsoft Edge (latest version). Chromium-based
+browsers also enable “Install app” (PWA) and the smoothest
+printing.</td>
+</tr>
+<tr>
+<td>Screen</td>
+<td>1366 × 768 or larger; a touchscreen (optional) works well for
+POS</td>
+</tr>
+<tr>
+<td>Internet</td>
+<td>Stable broadband. The POS also supports offline billing if the
+connection drops.</td>
+</tr>
+<tr>
+<td>Computer</td>
+<td>Any PC/laptop made in the last 6 years; 4 GB RAM minimum, 8 GB
+recommended</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Windows 10/11, macOS, or Linux</td>
+</tr>
+<tr>
+<td>Printer</td>
+<td>80 mm thermal receipt printer (58 mm supported via receipt
+settings), installed in the OS</td>
+</tr>
+<tr>
+<td>Print helper</td>
+<td>Churi Print Service installed on the billing PC for silent printing
+(Section 19)</td>
+</tr>
+<tr>
+<td>Peripheral</td>
+<td>Cash drawer (optional, controlled from the POS), barcode scanner
+(optional)</td>
+</tr>
+<tr>
+<td>Display kitchen</td>
+<td>A dedicated screen/TV for the Kitchen Display at the pass</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minimum-for-office-reporting-use">Minimum for office / reporting
+use</h3>
+<ul>
+<li>Any modern browser, any screen size, internet connection.</li>
+<li>No printer required.</li>
+</ul>
+<h3 id="accounts-and-access">Accounts and access</h3>
+<ul>
+<li>A user account must be created for you by your administrator
+(Section 18.1).</li>
+<li>No additional third-party accounts are required for core
+billing.</li>
+<li>Optional integrations may require: Razorpay/Stripe (payments), SMTP
+mail server (emails), Meta WhatsApp Business account (WhatsApp
+messages), Swiggy/Zomato API credentials (delivery channels).</li>
+</ul>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Always keep at least one billing terminal
+able to reach the server. Offline orders are stored locally on that
+terminal and must be reconciled afterwards (Section 18.13).</p>
+</blockquote>
+<hr />
+<h2 id="getting-started">3. Getting Started</h2>
+<h3 id="accessing-the-application">3.1 Accessing the application</h3>
+<p>Step 1: Open Chrome or Edge on your computer.</p>
+<p>Step 2: In the address bar, type the web address given to you by your
+administrator (for example your restaurant’s POS URL) and press
+<strong>Enter</strong>.</p>
+<p>Step 3: The login screen appears.</p>
+<figure>
+<img src="assets/01-login-screen.png"
+alt="Login screen" />
+<figcaption aria-hidden="true">Login screen</figcaption>
+</figure>
+<p><em>Figure 1 — Login screen</em></p>
+<p><strong>What to note in the screenshot:</strong> ① <strong>Email or
+Username</strong> field ② <strong>Password</strong> field (eye icon
+shows/hides the password) ③ <strong>Remember me on this device</strong>
+checkbox ④ <strong>Sign In</strong> button ⑤ <strong>Forgot
+password?</strong> link ⑥ Branded hero panel (left) with feature pills ⑦
+Support shortcuts (WhatsApp / phone) at the bottom</p>
+<p>💡 <strong>Tip:</strong> On Chrome/Edge you can install the app to
+your desktop. Look for the <strong>Install</strong> banner on the login
+screen and click <strong>Install</strong>. It opens like a normal
+desktop app.</p>
+<h3 id="logging-in">3.2 Logging in</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Email or Username</td>
+<td>Yes</td>
+<td>Your account’s email address <strong>or</strong> username. Not
+case-sensitive.</td>
+<td><code>cashier.main</code> or
+<code>manager@restaurant.com</code></td>
+</tr>
+<tr>
+<td>Password</td>
+<td>Yes</td>
+<td>Your password. Use the eye icon to show/hide it while typing.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Remember me on this device</td>
+<td>No</td>
+<td>Keeps you signed in on this computer between visits.</td>
+<td>☑</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Steps:</strong></p>
+<p>Step 1: Click the <strong>Email or Username</strong> field and type
+your username or email.</p>
+<p>Step 2: Click the <strong>Password</strong> field and type your
+password.</p>
+<p>Step 3: Optional — tick <strong>Remember me on this device</strong>
+on a private, trusted computer only.</p>
+<p>Step 4: Click <strong>Sign In</strong>.</p>
+<p>Step 5: Your role’s dashboard appears, and the sidebar shows only the
+sections you are allowed to use.</p>
+<figure>
+<img src="assets/04-dashboard-branch-manager.png"
+alt="Branch Manager dashboard" />
+<figcaption aria-hidden="true">Branch Manager dashboard</figcaption>
+</figure>
+<p><em>Figure 2 — Dashboard after login (Branch Manager): greeting row,
+five live stat cards, order pipeline, top-selling items, cash drawer
+position and quick actions (Open POS, Count &amp; Reconcile, Create
+Purchase Order).</em></p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> Your account is limited by role. If a
+menu item is missing, you likely do not have permission for it — contact
+your administrator rather than assuming it is broken.</p>
+</blockquote>
+<h4 id="wrong-password">Wrong password</h4>
+<ul>
+<li>After <strong>5 failed attempts within 15 minutes</strong>, the
+account (and the network address) is temporarily blocked and you will
+see an error telling you to retry after some time. Wait for the
+cool-down window and try again, or ask your administrator to reset your
+password (Section 18.1).</li>
+</ul>
+<h4 id="account-states">Account states</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Account active</td>
+<td>Normal access</td>
+</tr>
+<tr>
+<td>Account deactivated (INACTIVE) or deleted</td>
+<td>Login refused with an access message</td>
+</tr>
+<tr>
+<td>Franchise suspended</td>
+<td>Only the platform Super Admin can log in</td>
+</tr>
+<tr>
+<td>Franchise inactive</td>
+<td>The owner sees the system <strong>read-only</strong>; branch staff
+cannot log in</td>
+</tr>
+</tbody>
+</table>
+<h3 id="remember-me-and-sessions">3.3 Remember me and sessions</h3>
+<ul>
+<li>The <strong>Remember me</strong> checkbox stores your session on
+that device.</li>
+<li>Sessions expire after <strong>1 day</strong>. When it expires you
+are returned to the login screen — this is normal; simply log in
+again.</li>
+<li>Logging out from another device or by an administrator ends your
+session too.</li>
+</ul>
+<h3 id="forgot-password-password-recovery">3.4 Forgot password /
+password recovery</h3>
+<p><strong>Supported recovery path (recommended):</strong></p>
+<p>Step 1: Contact your <strong>franchise administrator</strong> (branch
+manager or franchise owner).</p>
+<p>Step 2: They open <strong>Users</strong>, find your account, click
+<strong>Reset Password</strong> and give you the new password (Section
+18.1).</p>
+<p>Step 3: Log in with the new password and keep it secret.</p>
+<p><strong>On the login screen</strong>, clicking <strong>Forgot
+password?</strong> shows the message: <em>“Please contact your franchise
+administrator to reset your credentials.”</em></p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Pages <code>/forgot-password</code> and
+<code>/reset-password</code> also exist and can be opened by typing the
+address directly after <code>/</code>, but they are not linked from the
+login screen and may not be enabled for your deployment. The
+administrator reset above is the reliable path.</p>
+</blockquote>
+<h3 id="logging-out">3.5 Logging out</h3>
+<p>Step 1: Click your name/avatar area at the bottom of the sidebar.</p>
+<p>Step 2: Click <strong>Logout</strong>.</p>
+<p>Step 3: You are returned to the login screen. Local cart and session
+data on that browser are cleared.</p>
+<p>🔐 <strong>Security:</strong> Log out at the end of every shift,
+especially on shared counter computers. Alternatively, use the app lock
+(below) which keeps you logged in but locks the screen.</p>
+<h3 id="app-lock-lock-your-screen-instantly">3.6 App lock (lock your
+screen instantly)</h3>
+<p>Lock the application without logging out — useful when you step away
+from the counter.</p>
+<p>Step 1: Press <strong>Ctrl + L</strong> (Windows/Linux) or <strong>⌘
++ L</strong> (Mac), or click the <strong>lock icon</strong> in the top
+header.</p>
+<p>Step 2: The screen is covered by the lock overlay.</p>
+<p>Step 3: To continue, type your <strong>account password</strong> and
+confirm. After several wrong attempts the unlock is temporarily
+blocked.</p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> The lock state survives a page refresh.
+Public pages (login, order tracking) stay reachable while locked.
+Administrators can also assign a 4-digit <strong>app PIN</strong> to a
+user from the Users page (<strong>Set PIN</strong>).</p>
+</blockquote>
+<h3 id="self-registration-and-onboarding-new-franchises">3.7
+Self-registration and onboarding (new franchises)</h3>
+<p>New franchise owners can sign up themselves:</p>
+<p>Step 1: Open the <code>/register</code> page (registration is not
+linked from the login screen; your onboarding contact will give you the
+link).</p>
+<p>Step 2: Enter your email and password (or continue with Google), then
+confirm.</p>
+<p>Step 3: Enter the <strong>6-digit OTP</strong> sent to your email.
+You have <strong>10 minutes</strong>; you may enter it up to <strong>5
+times</strong> before it expires.</p>
+<p>Step 4: Choose a subscription plan and pay the order
+(Razorpay/Stripe).</p>
+<p>Step 5: After payment is verified, your franchise, first branch and
+administrator account are created and you can log in.</p>
+<p>📞 Questions during onboarding: WhatsApp <strong>+91
+8699524005</strong> (also shown on the login screen).</p>
+<h3 id="first-time-setup-checklist">3.8 First-time setup checklist</h3>
+<p>For a new installation, the administrator should complete these in
+order:</p>
+<ol type="1">
+<li>Log in as the administrator account.</li>
+<li>Confirm <strong>franchise/branch details</strong>: name, address,
+phone, GST number (Settings → Franchise &amp; Branch; Branches
+page).</li>
+<li>Set <strong>receipt layout</strong>: logo, header, footer, FSSAI,
+paper size (Receipt Settings).</li>
+<li>Configure <strong>tax rules</strong> and turn GST on for the branch
+(Tax &amp; Compliance).</li>
+<li>Create <strong>categories</strong> and <strong>menu items</strong>
+with prices (Menu).</li>
+<li>Set <strong>units</strong> and <strong>inventory items</strong> with
+reorder/critical levels (Inventory).</li>
+<li>Add <strong>vendors</strong> (Vendors) and create the first
+<strong>purchase order</strong> if needed.</li>
+<li>Add <strong>tables</strong> (Table Management).</li>
+<li>Create <strong>users</strong> and assign roles (Users) — one per
+person, never shared.</li>
+<li>Review <strong>User Roles</strong> permission switches if your
+operations differ from the defaults.</li>
+<li>Configure <strong>payment methods</strong> shown on the billing
+terminal (Settings → Payment Methods).</li>
+<li>Install the <strong>Churi Print Service</strong> on billing
+computers and test-print (Section 19).</li>
+<li>Open the <strong>cash drawer</strong> with an opening balance to
+start trading (Cash Drawer).</li>
+<li>Run one <strong>test order</strong> end to end: bill → KOT → kitchen
+→ payment → receipt.</li>
+<li>Take a <strong>backup snapshot</strong> (Backup &amp; Recovery) once
+setup is complete.</li>
+</ol>
+<hr />
+<h2 id="understanding-the-interface">4. Understanding the Interface</h2>
+<h3 id="the-login-screen">4.1 The login screen</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>What it is</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hero panel (left)</td>
+<td>Branded image panel</td>
+<td>Shows the restaurant’s brand, tagline and feature pills</td>
+</tr>
+<tr>
+<td>Email or Username</td>
+<td>Text field</td>
+<td>Your identity</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>Password field</td>
+<td>Your secret; eye icon toggles visibility</td>
+</tr>
+<tr>
+<td>Sign In</td>
+<td>Primary button</td>
+<td>Logs you in</td>
+</tr>
+<tr>
+<td>Forgot password?</td>
+<td>Link</td>
+<td>Shows guidance to contact your administrator</td>
+</tr>
+<tr>
+<td>Remember me</td>
+<td>Checkbox</td>
+<td>Keeps the session on this device</td>
+</tr>
+<tr>
+<td>Theme toggle</td>
+<td>Moon/sun icon</td>
+<td>Switches light/dark mode</td>
+</tr>
+<tr>
+<td>Install banner</td>
+<td>PWA prompt</td>
+<td>Installs the app to your desktop (Chromium browsers)</td>
+</tr>
+<tr>
+<td>WhatsApp / phone links</td>
+<td>Support shortcuts</td>
+<td>Contact support: +91 8699524005</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-sidebar-main-navigation">4.2 The sidebar (main
+navigation)</h3>
+<p>The dark sidebar on the left is your main navigation.</p>
+<ul>
+<li><strong>Brand block (top):</strong> logo/initials, restaurant name
+and the label <em>POS System</em>.</li>
+<li><strong>Sections:</strong> grouped headings (for example
+<em>CORE</em>, <em>FINANCE</em>, <em>STAFF</em>). Click a heading’s
+chevron to collapse/expand.</li>
+<li><strong>Menu items:</strong> each opens a page. The current page is
+highlighted.</li>
+<li><strong>Permission filter:</strong> items you have no permission for
+are hidden automatically, and empty sections disappear. Super Admin sees
+everything.</li>
+<li><strong>User block (bottom):</strong> your name, role and
+<strong>Logout</strong>.</li>
+</ul>
+<figure>
+<img src="assets/05-sidebar-and-menu.png"
+alt="Sidebar navigation" />
+<figcaption aria-hidden="true">Sidebar navigation</figcaption>
+</figure>
+<p><em>Figure 3 — The sidebar (left) with grouped sections, and a module
+page (Menu) filling the workspace. Note the highlighted current page and
+the user block with Logout at the bottom.</em></p>
+<p><strong>What the sidebar contains depends on your role</strong> — see
+the per-role lists in Section 5 and the role guides in Section 30.</p>
+<p>💡 <strong>Tip:</strong> The sidebar label tells you exactly where a
+feature lives. This manual always writes navigation as
+<code>Sidebar Section → Menu Item</code>,
+e.g. <code>FINANCE → Cash Drawer</code>.</p>
+<h3 id="the-top-header">4.3 The top header</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theme toggle</td>
+<td>Switch between light and dark appearance</td>
+</tr>
+<tr>
+<td><strong>Lock</strong> button (or Ctrl/⌘ + L)</td>
+<td>Instantly locks the app (Section 3.6)</td>
+</tr>
+<tr>
+<td><strong>Notification bell</strong></td>
+<td>Real-time notifications with a red unread counter — stock alerts,
+order events (Section 21)</td>
+</tr>
+<tr>
+<td><strong>Ad banner strip</strong></td>
+<td>Promotional banners configured by the administrator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-screen-elements">4.4 Common screen elements</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Element</th>
+<th>What it is</th>
+<th>What it does</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stat card</strong></td>
+<td>Small tile with a number</td>
+<td>Shows a live metric (orders, revenue, low stock)</td>
+<td>Glance at the dashboard</td>
+</tr>
+<tr>
+<td><strong>Table/list</strong></td>
+<td>Rows and columns</td>
+<td>Lists records; column headers often sort</td>
+<td>Find a record</td>
+</tr>
+<tr>
+<td><strong>Search box</strong></td>
+<td>Text field</td>
+<td>Filters the list as you type</td>
+<td>Find by name/number</td>
+</tr>
+<tr>
+<td><strong>Filter chips/dropdowns</strong></td>
+<td>Date range, branch, status selectors</td>
+<td>Narrow the list</td>
+<td>When lists are long</td>
+</tr>
+<tr>
+<td><strong>Reset filters</strong></td>
+<td>Clear button</td>
+<td>Returns the list to default</td>
+<td>When “data is missing” (it is only filtered)</td>
+</tr>
+<tr>
+<td><strong>Status badge</strong></td>
+<td>Colored pill</td>
+<td>Shows the state of a record</td>
+<td>Scan status quickly</td>
+</tr>
+<tr>
+<td><strong>Row actions</strong></td>
+<td>Icons/buttons per row</td>
+<td>View, Edit, Delete, etc.</td>
+<td>Act on one record</td>
+</tr>
+<tr>
+<td><strong>Modal/dialog</strong></td>
+<td>Pop-up window</td>
+<td>Confirm or complete a task; has Cancel</td>
+<td>Any focused task</td>
+</tr>
+<tr>
+<td><strong>Toast messages</strong></td>
+<td>Small pop-ups top-right</td>
+<td>Confirm success or explain an error</td>
+<td>After every action</td>
+</tr>
+<tr>
+<td><strong>Tabs</strong></td>
+<td>Row of section names</td>
+<td>Switch between views of the same page</td>
+<td>e.g. Settings tabs</td>
+</tr>
+<tr>
+<td><strong>Pagination</strong></td>
+<td>Page numbers at list bottom</td>
+<td>Moves through long lists</td>
+<td>When there are many records</td>
+</tr>
+<tr>
+<td><strong>Drawer</strong></td>
+<td>Panel sliding from the right</td>
+<td>Shows details without leaving the page</td>
+<td>Order details, notifications</td>
+</tr>
+<tr>
+<td><strong>Primary / danger buttons</strong></td>
+<td>Blue/red buttons</td>
+<td>Save/create vs. delete/cancel</td>
+<td>Follow the color: red = destructive</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status badges you will see (generic meanings):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Badge</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green / Active / Paid</td>
+<td>Working normally / completed / fully paid</td>
+</tr>
+<tr>
+<td>Amber / Pending / Partial</td>
+<td>Waiting for action / partially paid</td>
+</tr>
+<tr>
+<td>Red / Failed / Cancelled / Overdue</td>
+<td>Problem or stopped state</td>
+</tr>
+<tr>
+<td>Grey / Inactive / Draft</td>
+<td>Not in use yet / not published</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Red <strong>Delete</strong> buttons are
+permanent actions. Deleted records usually land in the <strong>Recycle
+Bin</strong> first (Section 18.9) — but some deletions (e.g. <em>Delete
+Forever</em> in the Recycle Bin) cannot be undone.</p>
+</blockquote>
+<h3 id="themes-colors-and-branding">4.5 Themes, colors and branding</h3>
+<ul>
+<li>Toggle light/dark from the header or login screen.</li>
+<li>The accent color, logos, favicon and login hero content are
+controlled in <strong>Settings</strong> (Theme &amp; Colors, Branding,
+Login Screen tabs) by users with permission.</li>
+<li>Branding is pushed to all terminals automatically — changes appear
+within seconds without a restart.</li>
+</ul>
+<p><strong>Available accent presets:</strong> Ocean Blue (default),
+Churi Crimson, Emerald Green, Royal Purple, Sunset Orange, Vibrant Red,
+Teal Green, or a custom hex color.</p>
+<h3 id="keyboard-shortcuts">4.6 Keyboard shortcuts</h3>
+<h4 id="billing-terminal-pos">Billing terminal (POS)</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F1</strong></td>
+<td>Focus item search</td>
+</tr>
+<tr>
+<td><strong>F2</strong></td>
+<td>Switch to Dine-in order type</td>
+</tr>
+<tr>
+<td><strong>F8</strong></td>
+<td>Hold the current bill</td>
+</tr>
+<tr>
+<td><strong>F10</strong></td>
+<td>Pay &amp; Print</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ctrl / ⌘ + L</strong></td>
+<td>Lock the application</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Shortcuts work only while the POS screen is
+open and no dialog is asking for text input.</p>
+</blockquote>
+<hr />
+<h2 id="user-roles-and-permissions">5. User Roles and Permissions</h2>
+<h3 id="the-seven-roles">5.1 The seven roles</h3>
+<p>Every user has exactly one role. The role decides which pages appear
+in the sidebar and what actions are allowed.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Role</th>
+<th>ID</th>
+<th>Purpose</th>
+<th>Main responsibilities</th>
+<th>Cannot do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Super Admin</strong></td>
+<td>1</td>
+<td>Runs the whole platform</td>
+<td>Franchises, plans, integrations, platform settings, audit, backups,
+WhatsApp console</td>
+<td>— (full access)</td>
+</tr>
+<tr>
+<td><strong>Franchise Owner</strong></td>
+<td>2</td>
+<td>Owns one franchise (tenant) and its branches</td>
+<td>Menu, offers, branches, subscriptions, reports, tax, backups</td>
+<td>Platform-wide settings, other franchises</td>
+</tr>
+<tr>
+<td><strong>Branch Manager</strong></td>
+<td>3</td>
+<td>Runs a single outlet</td>
+<td>POS, kitchen, orders, tables, reservations, inventory, staff,
+reports, receipts</td>
+<td>Franchise/branch administration, permission editing</td>
+</tr>
+<tr>
+<td><strong>Cashier</strong></td>
+<td>4</td>
+<td>Bills and settles customers</td>
+<td>POS, orders, online orders, cash drawer, refunds, tax view,
+attendance</td>
+<td>Menu edits, inventory writes, reports, settings</td>
+</tr>
+<tr>
+<td><strong>Kitchen Staff</strong></td>
+<td>5</td>
+<td>Prepares orders</td>
+<td>Kitchen display, order status, menu view, reservations,
+attendance</td>
+<td>Billing, payments, refunds, inventory writes</td>
+</tr>
+<tr>
+<td><strong>Inventory Manager</strong></td>
+<td>6</td>
+<td>Controls stock and purchasing</td>
+<td>Inventory, vendors, purchase orders, attendance</td>
+<td>Billing, reports, settings, menu pricing edits</td>
+</tr>
+<tr>
+<td><strong>Accountant</strong></td>
+<td>7</td>
+<td>Money and compliance</td>
+<td>Reports, expenses, cash drawer view, tax, refunds, settlements,
+attendance</td>
+<td>POS billing, menu, inventory, settings</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Permissions are not hard-coded per role
+alone — each role has an editable set of permission switches (Section
+5.3), so your installation may differ slightly from the defaults
+below.</p>
+</blockquote>
+<h3 id="permission-matrix">5.2 Permission matrix</h3>
+<p>Based on the default configuration (✅ = available, 👁️ = view only,
+❌ = not available):</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr>
+<th>Feature</th>
+<th style="text-align: right;">Super Admin</th>
+<th style="text-align: right;">Franchise Owner</th>
+<th style="text-align: right;">Branch Manager</th>
+<th style="text-align: right;">Cashier</th>
+<th style="text-align: right;">Kitchen</th>
+<th style="text-align: right;">Inventory Mgr</th>
+<th style="text-align: right;">Accountant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dashboard</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (all branches)</td>
+<td style="text-align: right;">✅ (own branch)</td>
+<td style="text-align: right;">✅ (own till)</td>
+<td style="text-align: right;">✅ (queue)</td>
+<td style="text-align: right;">✅ (stock)</td>
+<td style="text-align: right;">✅ (finance)</td>
+</tr>
+<tr>
+<td>POS / Billing</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (no payment)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Orders list</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Kitchen Display</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Menu (view)</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">👁️</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Menu (create/edit/delete)</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅*</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅ (create only)</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Combos / Offers</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅*</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Tables &amp; Reservations</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅ (manage)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Online Orders / Channels</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">👁️</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">👁️ (settlements)</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">👁️</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Vendors / Purchase Orders</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Cash Drawer</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Expenses</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Refunds / Voids</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (request/approve)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Tax &amp; Compliance</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">👁️</td>
+<td style="text-align: right;">👁️</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Reports &amp; Analytics</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (own branch)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Staff: Employees</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Attendance (own)</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Users management</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Branches</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Franchises (Tenants)</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Leads, Plans, Integrations, WhatsApp console</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>User Roles (permissions)</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Receipt Settings</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (limited tabs)</td>
+<td style="text-align: right;">✅ (limited tabs)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Recycle Bin / Audit Logs</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Backup &amp; Recovery</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+<tr>
+<td>Data Export</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">✅</td>
+</tr>
+<tr>
+<td>Advertisements</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅</td>
+<td style="text-align: right;">✅ (own branch)</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+<td style="text-align: right;">❌</td>
+</tr>
+</tbody>
+</table>
+<p>* Subject to the role’s enabled permission switches.</p>
+<p><strong>Why a feature may be missing from your sidebar:</strong> the
+sidebar only renders items whose permission is switched on for your
+role. If you believe you need a page, ask an administrator to enable it
+in <strong>User Roles</strong>.</p>
+<h3 id="changing-what-a-role-can-do">5.3 Changing what a role can
+do</h3>
+<p>Only users with the <em>User Roles</em> permission (Super Admin by
+default) can do this.</p>
+<p><strong>Navigation:</strong>
+<code>PLATFORM MANAGEMENT → User Roles</code></p>
+<p>Step 1: Open <strong>User Roles</strong>.</p>
+<p>Step 2: Choose the role card (for example <em>Cashier</em>).</p>
+<p>Step 3: Toggle permission switches by group (orders, menu, inventory,
+finance…). Each switch is immediately effective for users of that role
+on their next page load.</p>
+<p>Step 4: Click <strong>Save</strong> to apply the changed
+permissions.</p>
+<figure>
+<img src="assets/22-user-roles-permissions.png"
+alt="User roles permission matrix" />
+<figcaption aria-hidden="true">User roles permission matrix</figcaption>
+</figure>
+<p><em>Figure 4 — User Roles: per-role permission cards with switches
+grouped by feature.</em></p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> The Super Admin’s <em>all access</em>
+switch is locked and cannot be turned off. Be careful when revoking
+permissions from <em>Branch Manager</em> or <em>Cashier</em> — you may
+stop a live outlet from billing.</p>
+</blockquote>
+<h3 id="read-only-and-suspended-states">5.4 Read-only and suspended
+states</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>State</th>
+<th>Who sees it</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Franchise Inactive (Read-Only Mode)</strong></td>
+<td>Non-Super-Admin users of that franchise</td>
+<td>Amber banner at the top; viewing allowed, changes blocked; POS shows
+<em>BILLING SUSPENDED</em>; kitchen shows <em>OPERATIONS
+SUSPENDED</em></td>
+</tr>
+<tr>
+<td><strong>Franchise Suspended</strong></td>
+<td>Everyone except Super Admin</td>
+<td>Login refused</td>
+</tr>
+<tr>
+<td><strong>Franchise Deleted</strong></td>
+<td>Everyone</td>
+<td>Access refused</td>
+</tr>
+<tr>
+<td><strong>Read-only user flag</strong></td>
+<td>Individual users</td>
+<td>Some administrative actions require password re-verification</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dashboards">6. Dashboards</h2>
+<p><strong>Navigation:</strong> <code>Dashboard</code> (top item in
+every sidebar) — or simply log in.</p>
+<p>The dashboard you see is chosen automatically from your role. Every
+dashboard combines <strong>stat cards</strong> (live numbers), charts,
+tables and quick-action buttons.</p>
+<figure>
+<img src="assets/21-dashboard-superadmin.png"
+alt="Super Admin dashboard" />
+<figcaption aria-hidden="true">Super Admin dashboard</figcaption>
+</figure>
+<p><em>Figure 5 — Super Admin dashboard: franchises, outlets,
+subscription MRR, franchise revenue and leads.</em></p>
+<figure>
+<img src="assets/28-dashboard-franchise-owner.png"
+alt="Franchise Owner dashboard" />
+<figcaption aria-hidden="true">Franchise Owner dashboard</figcaption>
+</figure>
+<p><em>Figure 6 — Franchise Owner dashboard: consolidated orders, gross
+revenue, staff on duty, low-stock alerts and branch
+performance.</em></p>
+<figure>
+<img src="assets/29-dashboard-cashier.png"
+alt="Cashier dashboard" />
+<figcaption aria-hidden="true">Cashier dashboard</figcaption>
+</figure>
+<p><em>Figure 7 — Cashier dashboard: active orders, pending payments,
+shift orders, drawer balance and the order pipeline.</em></p>
+<figure>
+<img src="assets/30-dashboard-kitchen.png"
+alt="Kitchen dashboard" />
+<figcaption aria-hidden="true">Kitchen dashboard</figcaption>
+</figure>
+<p><em>Figure 8 — Kitchen dashboard: active queue, average prep time
+against the 15-minute SLA, completed dispatches and station
+efficiency.</em></p>
+<figure>
+<img src="assets/31-dashboard-inventory.png"
+alt="Inventory dashboard" />
+<figcaption aria-hidden="true">Inventory dashboard</figcaption>
+</figure>
+<p><em>Figure 9 — Inventory dashboard: low stock, out of stock, pending
+POs, recent deliveries and payables.</em></p>
+<figure>
+<img src="assets/32-dashboard-accountant.png"
+alt="Accountant dashboard" />
+<figcaption aria-hidden="true">Accountant dashboard</figcaption>
+</figure>
+<p><em>Figure 10 — Accountant dashboard: revenue, expenses, operating
+profit, GST collected and pending refund approvals.</em></p>
+<h3 id="super-admin-dashboard">Super Admin dashboard</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Widget</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Franchises / Active Outlets</td>
+<td>How many tenants and branches exist</td>
+</tr>
+<tr>
+<td>Subscription MRR</td>
+<td>Monthly recurring subscription revenue</td>
+</tr>
+<tr>
+<td>Franchise Revenue (this month)</td>
+<td>Franchise payments received this month</td>
+</tr>
+<tr>
+<td>Inbound Leads</td>
+<td>Demo/lead count</td>
+</tr>
+<tr>
+<td>Subscription Status Overview</td>
+<td>Active / Trial / Expired / Suspended split</td>
+</tr>
+<tr>
+<td>Platform Revenue, New Franchises</td>
+<td>Monthly trends</td>
+</tr>
+<tr>
+<td>Recent Inbound Leads</td>
+<td>Latest leads with status</td>
+</tr>
+<tr>
+<td>Recent Audit Logs</td>
+<td>Latest sensitive actions</td>
+</tr>
+<tr>
+<td>Top Performing Tenants</td>
+<td>Best franchises</td>
+</tr>
+<tr>
+<td>Buttons</td>
+<td><strong>Manage Franchises</strong>, <strong>Export CSV</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="franchise-owner-dashboard">Franchise Owner dashboard</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Widget</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consolidated Orders (with AOV)</td>
+<td>Orders across all your branches today</td>
+</tr>
+<tr>
+<td>Gross Revenue Today</td>
+<td>Combined revenue</td>
+</tr>
+<tr>
+<td>Staff on Duty</td>
+<td>Employees present now</td>
+</tr>
+<tr>
+<td>Low Stock Alerts</td>
+<td>Items at/below reorder level across branches</td>
+</tr>
+<tr>
+<td>Marketing Combos</td>
+<td>Active combos</td>
+</tr>
+<tr>
+<td>Sales velocity chart</td>
+<td>Intraday sales curve</td>
+</tr>
+<tr>
+<td>Branch Performance Breakdown</td>
+<td>Orders, revenue, AOV and share per branch</td>
+</tr>
+<tr>
+<td>Franchise License Health</td>
+<td>Subscription status of your franchise</td>
+</tr>
+<tr>
+<td>Buttons</td>
+<td><strong>Export CSV</strong>, <strong>Reports</strong>, <strong>Open
+POS</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="branch-manager-dashboard">Branch Manager dashboard</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Widget</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Today’s orders / revenue</td>
+<td>Live counters for your branch</td>
+</tr>
+<tr>
+<td>Active reservations</td>
+<td>Bookings not yet seated</td>
+</tr>
+<tr>
+<td>Pending POs</td>
+<td>Purchase orders not yet received</td>
+</tr>
+<tr>
+<td>Low stock items</td>
+<td>Items needing reorder</td>
+</tr>
+<tr>
+<td>Orders by status</td>
+<td>New / Kitchen / Ready / Billed counts</td>
+</tr>
+<tr>
+<td>Cash drawer card</td>
+<td>Opening float, cash sales, paid out, amount in drawer, payment
+split</td>
+</tr>
+<tr>
+<td>Top selling items (today)</td>
+<td>Best sellers</td>
+</tr>
+<tr>
+<td>Table status</td>
+<td>Available/occupied live view</td>
+</tr>
+<tr>
+<td>Buttons</td>
+<td><strong>Open POS</strong>, <strong>Count &amp; Reconcile</strong>,
+<strong>Create Purchase Order</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cashier-dashboard">Cashier dashboard</h3>
+<p>Active Orders, Pending Payments, Shift Orders, Drawer Balance, Cash
+Collected; an <em>Order Pipeline</em> (Cooking → Ready → Bill Open →
+Settled) with completion rate; Active Terminal Queue; Live Register Cash
+Drawer (in drawer / cash sales / cash refunds); Terminal Audit &amp;
+Sync status; <strong>Export CSV</strong>, <strong>Open POS
+Terminal</strong>.</p>
+<h3 id="kitchen-dashboard">Kitchen dashboard</h3>
+<p>Active Kitchen Queue, Average Preparation Time (measured against a
+15-minute SLA), Completed Dispatches, Ready for Runner, Station
+Efficiency; Prep Pipeline; Active Tickets; SLA &amp; Prep Health; Most
+Prepared Dishes; <strong>Open KDS Fullscreen</strong>.</p>
+<h3 id="inventory-dashboard">Inventory dashboard</h3>
+<p>Low Stock Items, Out of Stock, Pending Purchase Orders, Received
+Shipments, Outstanding Payables; Procurement Pipeline (Draft / In
+Transit / Transfers / Received); Urgent Depletion Warnings; Stock Par
+Health; Recent Verified Deliveries; <strong>Export CSV</strong>.</p>
+<h3 id="accountant-dashboard">Accountant dashboard</h3>
+<p>Today’s Revenue, Today’s Expenses, Operating Profit, Tax Collected
+(GST), Pending Refunds; Treasury Velocity &amp; Capital Flow;
+<strong>Pending Refund Approvals with inline Approve/Reject</strong>;
+Live Fiscal Position; Monthly Cumulative P&amp;L (revenue vs expenses,
+last 7 days); links to till, tax &amp; P&amp;L reports; <strong>Export
+CSV</strong>.</p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Figures on the dashboard reflect live data
+for your scope (your branch, your franchise, or the whole platform for
+Super Admin) and the current day unless a widget states otherwise. If a
+number looks wrong, check the active date/branch filters on the report
+pages before raising a support ticket.</p>
+</blockquote>
+<hr />
+<h2 id="pos-billing-terminal">7. POS / Billing Terminal</h2>
+<h3 id="overview-and-layout">7.1 Overview and layout</h3>
+<p><strong>Navigation:</strong> <code>CORE → POS / Billing</code> (or
+the <strong>Open POS</strong> button on the dashboard).</p>
+<p>The POS is a full-screen terminal — it opens without the sidebar so
+nothing distracts from billing.</p>
+<figure>
+<img src="assets/06-pos-terminal.png"
+alt="POS terminal" />
+<figcaption aria-hidden="true">POS terminal</figcaption>
+</figure>
+<p><em>Figure 11 — The POS terminal with three items in the
+cart.</em></p>
+<p><strong>What to note in the screenshot:</strong> ① Order-type bar
+(<strong>Dine-in</strong> / Takeaway / Swiggy / Zomato) and online-order
+counter ② Category tabs and menu tiles (item, price, code) ③
+<strong>Current Order</strong> cart with quantity steppers, per-line
+prices and notes ④ Totals block: subtotal → tax (GST 5%) → <strong>GRAND
+TOTAL</strong>, coupon <strong>Apply</strong> and <strong>Split
+Bill</strong> ⑤ Tenders: <strong>Cash / UPI / Card / Due / More</strong>
+⑥ Action row: <strong>Hold · Save · Pay &amp; Print · KOT Only · KOT
+&amp; Print</strong> ⑦ Keyboard hint strip: F1 Search · F2 Dine-In · F8
+Hold · F10 Pay &amp; Print</p>
+<p><strong>Screen zones (left → right):</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Zone</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Top bar</strong></td>
+<td>Order type selector (Dine-in / Takeaway / Swiggy / Zomato), branch,
+live online-order counter, drawer status, support phone, lock/exit</td>
+</tr>
+<tr>
+<td><strong>Left/centre: menu grid</strong></td>
+<td>Category tabs + item tiles (name, price, veg mark, color tag).
+Combos appear alongside items. Search with F1</td>
+</tr>
+<tr>
+<td><strong>Order panel (cart)</strong></td>
+<td>Selected items with quantity steppers, line prices, notes, customer,
+table, discount/coupon, tax toggle, totals</td>
+</tr>
+<tr>
+<td><strong>Action row (bottom)</strong></td>
+<td><strong>Hold</strong>, <strong>Save</strong>, <strong>Pay &amp;
+Print</strong>, <strong>KOT Only</strong>, <strong>KOT &amp;
+Print</strong>, <strong>Void Cart</strong>, <strong>Open/Close
+Drawer</strong>, <strong>Split Payment</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Who can use it:</strong> Super Admin, Franchise Owner, Branch
+Manager, Cashier (full billing) and Kitchen Staff (order entry without
+payment). Permission key: <code>pos.access</code>.</p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> If the franchise is inactive the whole
+terminal shows <strong>BILLING SUSPENDED</strong> and all actions are
+disabled (read-only mode).</p>
+</blockquote>
+<h3 id="order-types">7.2 Order types</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Order type</th>
+<th>When to use</th>
+<th>Special behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dine-in</strong></td>
+<td>Guest eats in the restaurant</td>
+<td>Requires a table; table becomes <em>Occupied</em>; released to
+<em>Cleaning</em> when settled</td>
+</tr>
+<tr>
+<td><strong>Takeaway</strong></td>
+<td>Counter/collection order</td>
+<td>No table needed</td>
+</tr>
+<tr>
+<td><strong>Swiggy</strong></td>
+<td>Order arriving from Swiggy</td>
+<td>Marked with the platform source</td>
+</tr>
+<tr>
+<td><strong>Zomato</strong></td>
+<td>Order arriving from Zomato</td>
+<td>Marked with the platform source</td>
+</tr>
+</tbody>
+</table>
+<p>Orders can also arrive from <strong>WhatsApp</strong>,
+<strong>Website</strong> and <strong>QR</strong> sources (created from
+the Online Orders board or guest menu) — these appear in the POS queue
+automatically.</p>
+<p>💡 <strong>Tip:</strong> Press <strong>F2</strong> to jump straight
+back to Dine-in.</p>
+<h3 id="creating-a-dine-in-order-step-by-step">7.3 Creating a dine-in
+order step by step</h3>
+<p><strong>Prerequisites:</strong> You are logged in with POS
+permission; the branch is active; the menu has items.</p>
+<p>Step 1: Open <code>CORE → POS / Billing</code>.</p>
+<p>Step 2: Confirm the order type is <strong>Dine-in</strong> (top bar,
+or press <strong>F2</strong>).</p>
+<p>Step 3: Click the <strong>table selector</strong> and choose the
+table (or <code>NO TABLE (COUNTER)</code> for a counter bill).</p>
+<p>Step 4: Optional — click the <strong>customer</strong> field to
+attach a new or existing customer (name/phone).</p>
+<p>Step 5: Browse the menu or press <strong>F1</strong> and type to
+search. Click an item tile to add it to the cart.</p>
+<p>Step 6: Adjust quantities with the <strong>+ / −</strong> steppers in
+the cart. Add an <strong>order note</strong> if the kitchen needs one
+(e.g. “less spicy”).</p>
+<p>Step 7: Optional — apply a <strong>coupon code</strong> (Section 7.6)
+and confirm the discount shown in the totals.</p>
+<p>Step 8: Check the totals: subtotal, discount, tax, <strong>grand
+total</strong>.</p>
+<p>Step 9: Choose how to finish: - <strong>KOT Only</strong> — sends the
+ticket to the kitchen without printing a customer bill (order stays
+unpaid). - <strong>KOT &amp; Print</strong> — sends the KOT and opens
+the receipt print flow. - <strong>Save</strong> — records the order
+without printing (settle later). - <strong>Pay &amp; Print</strong>
+(F10) — open the payment dialog, take payment, print the bill.</p>
+<p>Step 10: If you chose <strong>Pay &amp; Print</strong>, select the
+payment method (Section 7.8), enter the amount and confirm. The payment
+is recorded, the bill prints, and the table releases to
+<em>Cleaning</em>.</p>
+<p><strong>Result:</strong> the order is created with a server-generated
+<strong>Order Number</strong>, appears in the Orders list and (if KOT
+sent) on the Kitchen Display in real time; cash payments are added to
+the open cash drawer.</p>
+<h3 id="choosing-a-table-and-customer">7.4 Choosing a table and
+customer</h3>
+<p><strong>Table selector (dine-in):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Table status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Available</td>
+<td>Free — can be seated</td>
+</tr>
+<tr>
+<td>Occupied</td>
+<td>An open order is running on it</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>Booked for a reservation</td>
+</tr>
+<tr>
+<td>Running KOT</td>
+<td>Kitchen is preparing for this table</td>
+</tr>
+<tr>
+<td>Paid</td>
+<td>Bill settled, awaiting cleaning</td>
+</tr>
+<tr>
+<td>Cleaning</td>
+<td>Being reset after a guest</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Selecting an occupied table resumes/creates an order for it.</li>
+<li>On payment the table is released automatically (<em>Cleaning</em>,
+then <em>Available</em>). Tables with other open unpaid orders are not
+released.</li>
+</ul>
+<p><strong>Customer field:</strong> click to add a <strong>new
+customer</strong> (name, phone) or search an <strong>existing
+customer</strong>. Customers power order history, loyalty/bulk messaging
+and delivery details.</p>
+<h3 id="cart-operations-and-order-notes">7.5 Cart operations and order
+notes</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add item</td>
+<td>Click the menu tile (or search via F1)</td>
+</tr>
+<tr>
+<td>Change quantity</td>
+<td><strong>+ / −</strong> on the cart line</td>
+</tr>
+<tr>
+<td>Remove a line</td>
+<td>Remove control on the cart line</td>
+</tr>
+<tr>
+<td>Order note</td>
+<td>Notes field — visible to the kitchen on the KOT</td>
+</tr>
+<tr>
+<td>Coupons/discount</td>
+<td>Discount field in the totals area</td>
+</tr>
+<tr>
+<td>Tax display</td>
+<td>Tax toggle — shows tax breakdown on the bill</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> The <strong>discount sent from the POS
+is not trusted by the server</strong>. Coupon codes are re-validated
+(active, not expired, usage limit not reached, minimum order value met,
+branch included) and percentage coupons are capped by their
+<strong>maximum discount</strong>. If a coupon does not apply, the code
+is invalid for this order.</p>
+</blockquote>
+<h3 id="discounts-and-coupon-codes-offers">7.6 Discounts and coupon
+codes (Offers)</h3>
+<p><strong>Navigation:</strong>
+<code>MENU &amp; ITEMS → Offers &amp; Discounts</code> (Franchise Owner
+/ Manager with permission).</p>
+<p><strong>Creating an offer:</strong></p>
+<p>Step 1: Click <strong>New/Offer</strong> (create).</p>
+<p>Step 2: Fill in:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Offer code</td>
+<td>Yes</td>
+<td>The code the cashier types at billing</td>
+<td><code>WELCOME10</code></td>
+</tr>
+<tr>
+<td>Discount type</td>
+<td>Yes</td>
+<td><strong>Percentage</strong> or <strong>Fixed amount</strong></td>
+<td>Percentage</td>
+</tr>
+<tr>
+<td>Discount value</td>
+<td>Yes</td>
+<td>The number</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>Max discount</td>
+<td>No</td>
+<td>Cap for percentage offers</td>
+<td><code>50</code></td>
+</tr>
+<tr>
+<td>Minimum order amount</td>
+<td>No</td>
+<td>Below this the code is rejected</td>
+<td><code>300</code></td>
+</tr>
+<tr>
+<td>Apply on</td>
+<td>Yes</td>
+<td>Order total / specific items / specific category</td>
+<td>Order total</td>
+</tr>
+<tr>
+<td>Usage limit</td>
+<td>No</td>
+<td>Total redemptions allowed</td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td>Start / End date</td>
+<td>Yes</td>
+<td>Validity window</td>
+<td>01-11-2026 → 30-11-2026</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Yes</td>
+<td>Active / Inactive</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Branches</td>
+<td>Yes</td>
+<td>Which outlets honour the offer</td>
+<td>All branches</td>
+</tr>
+</tbody>
+</table>
+<p>Step 3: Save. The offer is live immediately.</p>
+<p><strong>At the POS:</strong> type the code in the discount field →
+the server returns the validated discount amount → it appears in the
+totals. Each successful order increments the offer’s usage counter
+inside the order transaction (no double-spend).</p>
+<h3 id="taxes-on-the-bill">7.7 Taxes on the bill</h3>
+<ul>
+<li>Tax is <strong>calculated by the server</strong> from the tax rules
+configured under <code>Tax &amp; Compliance</code>, never typed by the
+cashier.</li>
+<li>Rules are resolved <strong>branch-first, then
+franchise-level</strong>. A branch-specific rule with the same name
+overrides the franchise rule.</li>
+<li>Rule fields: tax type (GST/VAT/Service/Custom), rate, apply-on (all
+items / category / item), <strong>inclusive or exclusive</strong> of
+price, active flag.</li>
+<li>If a branch has <strong>GST disabled</strong>, no GST component is
+applied to its orders.</li>
+<li>The bill stores a <strong>tax breakdown</strong> (per
+component/rate) which prints on the receipt (CGST/SGST split).</li>
+</ul>
+<p><strong>Default on a fresh installation:</strong> one tenant-level
+rule — <strong>GST 5%</strong> on all items, exclusive of price.</p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Cashiers can view tax (permission
+<code>tax.view</code>) but only administrators can change tax rules
+(<code>tax.manage</code>).</p>
+</blockquote>
+<h3 id="payments-single-payment-split-payment-due">7.8 Payments: single
+payment, split payment, due</h3>
+<p><strong>Payment methods on the terminal:</strong>
+<strong>Cash</strong>, <strong>UPI</strong>, <strong>Card</strong>,
+<strong>Due</strong> (primary row), plus <strong>Wallet</strong>,
+<strong>Cheque/Bank</strong>, <strong>Other</strong>, <strong>Swiggy
+Pay</strong>, <strong>Zomato Pay</strong> (extended tender options).
+Backend-recognised methods: Cash, Bank Transfer, UPI, Card, Razorpay,
+Other.</p>
+<p><strong>Single payment:</strong></p>
+<p>Step 1: Click <strong>Pay &amp; Print</strong> (F10).</p>
+<p>Step 2: Select the payment method.</p>
+<p>Step 3: Enter the amount (defaults to the grand total).</p>
+<p>Step 4: Confirm. The payment is recorded, the receipt prints.</p>
+<p><strong>Split payment (one bill settled by several
+methods):</strong></p>
+<p>Step 1: Click <strong>Split Payment</strong>.</p>
+<p>Step 2: Enter the amount for each tender you want (e.g. ₹500 Cash +
+remainder UPI).</p>
+<p>Step 3: Confirm — payments are recorded per method and the total must
+equal the bill.</p>
+<p><strong>Resulting payment status:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAID</td>
+<td>Full amount received</td>
+</tr>
+<tr>
+<td>PARTIAL</td>
+<td>Part of the bill received (balance due)</td>
+</tr>
+<tr>
+<td>PENDING</td>
+<td>Nothing received yet</td>
+</tr>
+<tr>
+<td>FAILED</td>
+<td>Payment attempt failed</td>
+</tr>
+<tr>
+<td>REFUNDED</td>
+<td>Payment returned (fully or partly)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Due:</strong> choosing <strong>Due</strong> leaves the bill
+PENDING/PARTIAL — used for tab/accounts customers. The Accountant’s
+dashboard shows <em>Pending Payments</em> for these.</p>
+<p><strong>Edit rule:</strong> once money is captured, the amount counts
+as credit toward any later edit of that order. You <strong>cannot reduce
+an order total below the amount already paid</strong> — cancel and
+refund instead (Section 8.4 / 15.3).</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Cash payments automatically increase the
+<strong>open cash drawer’s</strong> cash sales and expected balance.
+Always keep exactly one drawer open per shift.</p>
+</blockquote>
+<h3
+id="saving-holding-and-printing-save-hold-pay-print-kot-only-kot-print">7.9
+Saving, holding and printing: Save, Hold, Pay &amp; Print, KOT Only, KOT
+&amp; Print</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Button</th>
+<th>Shortcut</th>
+<th>What it does</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hold</strong></td>
+<td>F8</td>
+<td>Parks the current cart on this device (local held bills)</td>
+<td>Guest waiting on one item; serve another table first</td>
+</tr>
+<tr>
+<td><strong>Save</strong></td>
+<td>—</td>
+<td>Creates the order without printing</td>
+<td>Order in the kitchen now, payment later</td>
+</tr>
+<tr>
+<td><strong>Pay &amp; Print</strong></td>
+<td>F10</td>
+<td>Opens payment; after payment prints the customer bill</td>
+<td>Settling a table</td>
+</tr>
+<tr>
+<td><strong>KOT Only</strong></td>
+<td>—</td>
+<td>Sends the kitchen ticket only, no bill</td>
+<td>Start cooking before payment</td>
+</tr>
+<tr>
+<td><strong>KOT &amp; Print</strong></td>
+<td>—</td>
+<td>Sends KOT and prints the bill/KOT flow together</td>
+<td>Standard dine-in flow</td>
+</tr>
+<tr>
+<td><strong>Void Cart</strong></td>
+<td>—</td>
+<td>Discards the current cart with a reason (Section 7.11)</td>
+<td>Wrong table/items, guest leaves</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Direct print:</strong> the KOT preview offers a
+<strong>direct print</strong> action which sends the job straight to the
+configured printer (Section 19).</p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> <strong>KOT Only / KOT &amp; Print /
+Save</strong> create the order <em>unpaid</em>. Always follow through
+with <strong>Pay &amp; Print</strong> (or let the accountant settle it)
+— otherwise it shows up as a pending payment.</p>
+</blockquote>
+<h3 id="hold-and-resume-bills">7.10 Hold and resume bills</h3>
+<p>Step 1: Click <strong>Hold</strong> (F8) with items in the cart. A
+toast confirms: <code>Bill held (#…)</code>. The cart is stored
+<strong>on that device</strong> (browser storage).</p>
+<p>Step 2: Later, open the <strong>held bills / resume</strong> dialog
+(the resume control on the POS) to see parked bills.</p>
+<p>Step 3: Click <strong>Resume</strong> to reload the cart exactly as
+it was, or delete a held bill you no longer need.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Held bills are stored <strong>locally in
+that browser</strong>. They do not follow you to another terminal.
+Settle or note them before clearing browser data or switching
+computers.</p>
+</blockquote>
+<h3 id="voiding-a-cart">7.11 Voiding a cart</h3>
+<p>Step 1: Click <strong>Void Cart</strong>.</p>
+<p>Step 2: Enter a <strong>reason</strong> in the Void Cart dialog.</p>
+<p>Step 3: Confirm.</p>
+<p><strong>Result:</strong> the cart is discarded and a <strong>void
+record</strong> (with the cart snapshot) is stored. Voids are visible to
+managers under <strong>Refunds / Voids</strong> (Section 15.3).</p>
+<h3 id="cash-drawer-open-close">7.12 Cash drawer open / close</h3>
+<p><strong>Navigation:</strong> <code>FINANCE → Cash Drawer</code> (or
+the <strong>Open Drawer / Close Drawer</strong> buttons in the POS).</p>
+<p><strong>Open:</strong></p>
+<p>Step 1: Click <strong>Open Drawer</strong> (POS) or
+<strong>Open</strong> on the Cash Drawer page.</p>
+<p>Step 2: Enter the <strong>opening balance</strong> (the float you
+start with).</p>
+<p>Step 3: Confirm. The drawer session starts; cash sales are tracked
+against it.</p>
+<p><strong>Close and reconcile:</strong></p>
+<p>Step 1: Click <strong>Close Drawer</strong> (POS) or
+<strong>Close</strong> on the Cash Drawer page.</p>
+<p>Step 2: Enter the <strong>actual counted cash</strong>.</p>
+<p>Step 3: The system shows <strong>expected balance</strong> and the
+<strong>variance</strong> (difference).</p>
+<p>Step 4: Confirm. The session is stored with opening/closing figures
+and any variance.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opening balance</td>
+<td>Cash in the drawer at shift start</td>
+</tr>
+<tr>
+<td>Cash sales</td>
+<td>Cash received during the session</td>
+</tr>
+<tr>
+<td>Cash refunds</td>
+<td>Cash paid out as refunds</td>
+</tr>
+<tr>
+<td>Cash expenses</td>
+<td>Cash expenses booked from the drawer</td>
+</tr>
+<tr>
+<td>Expected balance</td>
+<td>Computed: opening + sales − refunds − expenses</td>
+</tr>
+<tr>
+<td>Actual balance</td>
+<td>What you physically counted</td>
+</tr>
+<tr>
+<td>Variance</td>
+<td>Actual − expected (positive = extra, negative = short)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>💡 <strong>Tip:</strong> Count the drawer at every shift change. A
+recurring negative variance is an early warning of billing errors.</p>
+</blockquote>
+<h3 id="receiving-online-orders-in-the-pos">7.13 Receiving online orders
+in the POS</h3>
+<ul>
+<li>Orders from Swiggy/Zomato/WhatsApp/Website/QR arrive in <strong>real
+time</strong> (sound + toast + red counter on the POS top bar).</li>
+<li>In-flight delivery orders are counted live at the top of the
+terminal.</li>
+<li>Accept/reject and status changes are done from the POS queue, the
+<strong>Online Orders</strong> board (Section 13.1), or the Kitchen
+Display.</li>
+<li>Manual entries for delivery platforms can be created from the Online
+Orders board (<strong>New Online Order</strong>).</li>
+</ul>
+<h3 id="offline-billing">7.14 Offline billing</h3>
+<p>If the internet drops:</p>
+<ul>
+<li>The terminal keeps working — menu and cached data come from local
+storage.</li>
+<li>New orders are queued <strong>on that device</strong> with a unique
+offline ID.</li>
+<li>When connectivity returns, queued orders sync automatically;
+duplicates are impossible because each offline order has a unique ID (a
+re-send returns the existing order instead of creating a second
+one).</li>
+<li>Track the queue at <code>PLATFORM/OFFLINE → Offline Orders</code>
+(Offline Reconciliation, Section 18.13).</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Do not clear browser data/IndexedDB
+while offline orders are pending — you would lose the queue.</p>
+</blockquote>
+<h3 id="pos-edge-cases">7.15 POS edge cases</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Situation</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Page refreshed mid-cart</td>
+<td>The active cart and order meta are restored from local storage</td>
+</tr>
+<tr>
+<td>Browser closed during a held bill</td>
+<td>Held bills persist on that device; re-open POS and resume</td>
+</tr>
+<tr>
+<td>Internet disconnects mid-payment</td>
+<td>The order may be queued; verify in Orders/Offline Orders before
+retrying to avoid double charging</td>
+</tr>
+<tr>
+<td>Same “Pay &amp; Print” clicked twice</td>
+<td>Orders use server-side idempotency for offline IDs; still, wait for
+the toast before clicking again</td>
+</tr>
+<tr>
+<td>Session expires while billing</td>
+<td>You are returned to the login screen; log in again and check the
+order state in <strong>Orders</strong> before re-billing</td>
+</tr>
+<tr>
+<td>Coupon rejected</td>
+<td>Code invalid/expired/usage exhausted/below minimum — bill without it
+or ask the owner</td>
+</tr>
+<tr>
+<td>Required table missing (dine-in)</td>
+<td>Select a table first; the server validates table/branch/customer
+before creating the order</td>
+</tr>
+<tr>
+<td>Franchise inactive</td>
+<td><strong>BILLING SUSPENDED</strong> — read-only until the owner
+renews/reactivates</td>
+</tr>
+<tr>
+<td>Stock hits zero for an item</td>
+<td>The item is flagged; marketplaces may be auto-updated to unavailable
+(“86”)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="orders">8. Orders</h2>
+<h3 id="orders-list">8.1 Orders list</h3>
+<p><strong>Navigation:</strong> <code>CORE → Orders</code></p>
+<figure>
+<img src="assets/07-orders-list.png" alt="Orders list" />
+<figcaption aria-hidden="true">Orders list</figcaption>
+</figure>
+<p><em>Figure 12 — Orders list with status/channel filters, grid/list
+views and per-row actions.</em></p>
+<ul>
+<li><strong>Filters:</strong> order status, channel/source (Dine-in,
+Takeaway, Swiggy, Zomato, WhatsApp, Website, QR), branch, date range,
+search by order number.</li>
+<li><strong>Views:</strong> grid and list views.</li>
+<li><strong>Columns:</strong> order number, type/source badge,
+table/customer, items count, total, payment status, status badge,
+biller, time.</li>
+<li><strong>Row actions:</strong> View, Accept, Reject, Cook, Ready,
+Serve, Done (availability depends on current status and your
+permissions).</li>
+<li><strong>Detail drawer/dialog:</strong> full item list, quantities,
+prices, tax/discount, payment status, notes, actions such as
+<strong>Mark Completed</strong>.</li>
+</ul>
+<h3 id="order-statuses">8.2 Order statuses</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Who moves it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PENDING</strong></td>
+<td>Received, not yet started</td>
+<td>System (on creation / channel intake)</td>
+</tr>
+<tr>
+<td><strong>PREPARING</strong></td>
+<td>In the kitchen</td>
+<td>Kitchen staff (Start cooking)</td>
+</tr>
+<tr>
+<td><strong>READY</strong></td>
+<td>Cooked, awaiting pickup/serve</td>
+<td>Kitchen staff</td>
+</tr>
+<tr>
+<td><strong>SERVED</strong></td>
+<td>Delivered to the table/guest</td>
+<td>Floor staff</td>
+</tr>
+<tr>
+<td><strong>COMPLETED</strong></td>
+<td>Finished and settled</td>
+<td>POS/manager</td>
+</tr>
+<tr>
+<td><strong>CANCELLED</strong></td>
+<td>Stopped before completion</td>
+<td>Anyone with <code>orders.cancel</code></td>
+</tr>
+<tr>
+<td><strong>DELETED</strong></td>
+<td>Removed record</td>
+<td>Users with <code>orders.delete</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Payment status</strong> (independent of the above):
+<code>PENDING → PARTIAL → PAID</code>, plus <code>FAILED</code>,
+<code>REFUNDED</code>.</p>
+<p><strong>Automatic behaviour:</strong></p>
+<ul>
+<li>Moving to <strong>PREPARING / READY / SERVED</strong> deducts recipe
+stock <strong>once</strong> (the order is flagged so stock cannot be
+deducted twice), expands combos, and reconciles low-stock alerts (a
+notification/email may be raised).</li>
+<li><strong>COMPLETED / CANCELLED</strong> releases the table to
+<em>Cleaning</em>/<em>Available</em> if no other open unpaid dine-in
+orders remain.</li>
+<li>Status changes are pushed in real time to the kitchen display and
+dashboards.</li>
+</ul>
+<h3 id="order-actions">8.3 Order actions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Action</th>
+<th>Permission</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accept</td>
+<td>online order permissions</td>
+<td>Incoming channel order accepted → PENDING</td>
+</tr>
+<tr>
+<td>Reject</td>
+<td>channel permissions</td>
+<td>Order rejected with a reason code</td>
+</tr>
+<tr>
+<td>Cook (Start cooking)</td>
+<td><code>kitchen.update</code></td>
+<td>→ PREPARING, stock deducted</td>
+</tr>
+<tr>
+<td>Ready</td>
+<td><code>kitchen.update</code></td>
+<td>→ READY</td>
+</tr>
+<tr>
+<td>Serve</td>
+<td><code>kitchen.update</code></td>
+<td>→ SERVED</td>
+</tr>
+<tr>
+<td>Done / Mark Completed</td>
+<td><code>orders.update</code></td>
+<td>→ COMPLETED, table released</td>
+</tr>
+<tr>
+<td>Edit order</td>
+<td><code>orders.update</code></td>
+<td>Items/qty changed; paid amount acts as credit</td>
+</tr>
+<tr>
+<td>Cancel</td>
+<td><code>orders.cancel</code></td>
+<td>Cancels; auto-refund if money was captured (Section 8.4)</td>
+</tr>
+<tr>
+<td>View receipt</td>
+<td><code>pos.access</code></td>
+<td>Opens the printable receipt</td>
+</tr>
+<tr>
+<td>Recipe (stock view)</td>
+<td><code>kitchen.update</code></td>
+<td>Shows ingredient deduction for the ticket</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cancelling-an-order">8.4 Cancelling an order</h3>
+<p><strong>Prerequisites:</strong> permission
+<code>orders.cancel</code>; the order is not already
+cancelled/deleted.</p>
+<p>Step 1: Open the order (Orders list → View).</p>
+<p>Step 2: Click <strong>Cancel</strong> and enter a
+<strong>cancellation reason</strong>.</p>
+<p>Step 3: Confirm.</p>
+<p><strong>System behaviour:</strong></p>
+<ul>
+<li>If the order was <strong>fully paid</strong>, a <strong>refund
+record is created automatically</strong> (FULL) <em>before</em> the
+cancellation is applied.</li>
+<li>If it was <strong>partially paid</strong>, a PARTIAL refund record
+is created.</li>
+<li>The order becomes <strong>CANCELLED</strong> with reason and
+timestamp; tables are released.</li>
+</ul>
+<p><strong>Failure conditions:</strong> cancelling an already
+cancelled/deleted order is refused.</p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> The automatic refund starts in
+<strong>REQUESTED</strong> status — it still needs approval in
+<strong>Refunds / Voids</strong> (Section 15.3) unless your process
+approves it immediately.</p>
+</blockquote>
+<h3 id="orders-items-summary">8.5 Orders &amp; Items Summary</h3>
+<p><strong>Navigation:</strong> <code>Orders &amp; Items Summary</code>
+(sidebar)</p>
+<p>A four-tab analytical view: <strong>Orders Summary</strong>,
+<strong>Items Summary</strong>, <strong>Orders Detail</strong>,
+<strong>Branch Summary</strong>.</p>
+<ul>
+<li><strong>Filters:</strong> range or month, branch.</li>
+<li><strong>Metrics:</strong> payment-mode breakdown, order totals,
+per-item quantities.</li>
+<li><strong>Export:</strong> <strong>Download Excel</strong>.</li>
+</ul>
+<p>Use it for daily/periodic reconciliation rather than live monitoring
+(use <strong>Reports &amp; Analytics</strong> for trends).</p>
+<hr />
+<h2 id="kitchen-display-kds">9. Kitchen Display (KDS)</h2>
+<p><strong>Navigation:</strong> <code>CORE → Kitchen Display</code> (or
+<strong>Open KDS Fullscreen</strong> on the dashboard).</p>
+<figure>
+<img src="assets/08-kitchen-display.png"
+alt="Kitchen Display" />
+<figcaption aria-hidden="true">Kitchen Display</figcaption>
+</figure>
+<p><em>Figure 13 — Kitchen Display: tickets move left to right from
+Active Queue → preparing → Ready for Pickup.</em></p>
+<h3 id="purpose">Purpose</h3>
+<p>The kitchen’s single screen: every live order as a ticket, moving
+left to right as it is prepared.</p>
+<h3 id="who-can-access-it">Who can access it</h3>
+<p>Kitchen Staff, Branch Manager, Cashier, Super Admin, Franchise Owner
+(permission <code>kitchen.view</code>).</p>
+<h3 id="the-columns">The columns</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+<th>Typical action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active Queue</strong></td>
+<td>New, unaccepted tickets</td>
+<td>Accept (or reject)</td>
+</tr>
+<tr>
+<td><strong>Orders / Tickets</strong></td>
+<td>Being prepared</td>
+<td>Start cooking / mark ready</td>
+</tr>
+<tr>
+<td><strong>Ready for Pickup</strong></td>
+<td>Cooked, waiting for the runner</td>
+<td>Mark ready / Ready &amp; serve</td>
+</tr>
+</tbody>
+</table>
+<h3 id="steps-kitchen-flow">Steps — kitchen flow</h3>
+<p>Step 1: An order arrives (POS <strong>KOT Only / KOT &amp;
+Print</strong>, or an online order). A chime sounds and the ticket
+appears.</p>
+<p>Step 2: Click <strong>Accept</strong> on the ticket (accepted within
+~20 minutes window).</p>
+<p>Step 3: Click <strong>Start cooking</strong>. If the item has a
+<strong>recipe</strong>, a stock-deduction modal shows the ingredients
+and quantities that will be deducted — confirm to deduct stock from
+inventory.</p>
+<p>Step 4: Click <strong>Mark Ready</strong> when cooked. The ticket
+moves to <em>Ready for Pickup</em>.</p>
+<p>Step 5: Use <strong>Ready &amp; serve</strong> to hand off to the
+floor (order → SERVED).</p>
+<h3 id="filters-and-alerts">Filters and alerts</h3>
+<ul>
+<li><strong>Dish filters</strong> to focus on one item/station.</li>
+<li><strong>Audio chime</strong> on new tickets (test your volume before
+service).</li>
+<li><strong>SLA panel</strong> on the dashboard shows average prep time
+against a 15-minute target.</li>
+</ul>
+<h3 id="who-can-access-it-limitations">Who can access it —
+limitations</h3>
+<ul>
+<li>Kitchen actions are blocked when the franchise is inactive
+(<strong>OPERATIONS SUSPENDED</strong>).</li>
+<li>Rejection is a real action (with reason) — it returns the order to
+the floor for handling.</li>
+</ul>
+<hr />
+<h2 id="menu-management">10. Menu Management</h2>
+<h3 id="menu-items">10.1 Menu items</h3>
+<p><strong>Navigation:</strong> <code>MENU &amp; ITEMS → Menu</code></p>
+<figure>
+<img src="assets/11-menu-management.png"
+alt="Menu management" />
+<figcaption aria-hidden="true">Menu management</figcaption>
+</figure>
+<p><em>Figure 14 — Menu page: item grid with search/category filter and
+Add Item / Bulk Upload / Transfer actions.</em></p>
+<p><strong>Who can access:</strong> Super Admin, Franchise Owner, Branch
+Manager (create/edit/delete), Kitchen Staff (view only), Inventory
+Manager (create only), Cashier (no access).</p>
+<p><strong>Available actions:</strong> Add item, Edit, Delete, search,
+category filter, Bulk Upload, Transfer Menu, toggle availability.</p>
+<p><strong>Steps — add an item:</strong></p>
+<p>Step 1: Open <code>MENU &amp; ITEMS → Menu</code>.</p>
+<p>Step 2: Click <strong>Add Item</strong>.</p>
+<p>Step 3: Fill the form (table below).</p>
+<p>Step 4: Optionally add <strong>recipe ingredients</strong> (inventory
+item + quantity + unit) so stock is deducted when the dish is
+cooked.</p>
+<p>Step 5: Click <strong>Save</strong>. The item appears on the POS grid
+immediately.</p>
+<p><strong>Field reference:</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Yes</td>
+<td>Dish name shown to cashiers</td>
+<td>Paneer Tikka</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>Yes</td>
+<td>Grouping used for tabs/filters</td>
+<td>Starters</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>Yes</td>
+<td>Selling price (before tax)</td>
+<td>240</td>
+</tr>
+<tr>
+<td>GST % (get percentage)</td>
+<td>No</td>
+<td>Tax percentage associated with the item</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Prep time</td>
+<td>No</td>
+<td>Estimated preparation minutes</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Vegetarian</td>
+<td>No</td>
+<td>Veg mark on the tile</td>
+<td>☑</td>
+</tr>
+<tr>
+<td>Available</td>
+<td>No</td>
+<td>Unavailable items cannot be ordered</td>
+<td>☑</td>
+</tr>
+<tr>
+<td>Color tag</td>
+<td>No</td>
+<td>Visual tile color</td>
+<td>Red</td>
+</tr>
+<tr>
+<td>Image</td>
+<td>No</td>
+<td>Photo (jpeg/png/webp, max 5 MB)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Yes</td>
+<td>Active / Inactive / Deleted</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Recipe ingredients</td>
+<td>No</td>
+<td>Inventory items + qty + unit deducted on cooking</td>
+<td>150 g paneer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Branch scoping:</strong> items can belong to the franchise
+(shared) or to a single branch. Branch users cannot edit/delete
+franchise-shared items.</p>
+<h3 id="categories">10.2 Categories</h3>
+<p><strong>Navigation:</strong> <code>Menu → Categories editor</code>
+(same page; permission <code>menu.create/update/delete</code>).</p>
+<ul>
+<li>Categories are typed <strong>MENU</strong> or
+<strong>INVENTORY</strong> (menu tabs vs stock groupings).</li>
+<li>Create/edit/delete with name and scope (franchise or branch).</li>
+</ul>
+<h3 id="bulk-upload">10.3 Bulk upload</h3>
+<p><strong>Navigation:</strong> <code>Menu → Bulk Upload</code></p>
+<p>Step 1: Download the <strong>template</strong> file.</p>
+<p>Step 2: Fill the template with your items (one row per item).</p>
+<p>Step 3: Upload the file and follow the import steps shown.</p>
+<p>Step 4: Review the result; items appear in the grid.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Always use the downloaded template —
+column mismatches cause import failures. Back up (or export) before a
+large bulk change.</p>
+</blockquote>
+<h3 id="menu-transfer-between-branches">10.4 Menu transfer between
+branches</h3>
+<p><strong>Purpose:</strong> push a branch’s menu to sibling branches
+inside the franchise.</p>
+<p><strong>Navigation:</strong> <code>Menu → Transfer Menu</code>
+(permission <code>menu.transfer</code>).</p>
+<p>Step 1: Open <strong>Transfer Menu</strong>.</p>
+<p>Step 2: Choose <strong>source branch</strong> and <strong>target
+branch(es)</strong>.</p>
+<p>Step 3: Preview the transfer, then confirm. Items are copied/updated
+at the target.</p>
+<p>Also available from the Branches page (<strong>Transfer
+Menu</strong>).</p>
+<h3 id="combos-meal-deals">10.5 Combos / Meal Deals</h3>
+<p><strong>Navigation:</strong>
+<code>MENU &amp; ITEMS → Combos / Meal Deals</code> (Franchise Owner /
+Super Admin; Manager per permissions).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>e.g. “Family Feast”</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Marketing text</td>
+</tr>
+<tr>
+<td>Items</td>
+<td>Constituent menu items (with quantities)</td>
+</tr>
+<tr>
+<td>Branches/outlets</td>
+<td>Where the combo is sold</td>
+</tr>
+</tbody>
+</table>
+<p>Create / edit / delete. Combos bill as a single line but expand into
+their items for <strong>recipe stock deduction</strong>.</p>
+<h3 id="offers-discounts">10.6 Offers &amp; Discounts</h3>
+<p>See Section 7.6 (creation fields) — managed from
+<code>MENU &amp; ITEMS → Offers &amp; Discounts</code>.</p>
+<hr />
+<h2 id="tables-and-reservations">11. Tables and Reservations</h2>
+<h3 id="table-management">Table Management</h3>
+<p><strong>Navigation:</strong>
+<code>TABLES &amp; GUESTS → Table Management</code> (permission
+<code>tables.view</code> / <code>tables.manage</code>).</p>
+<figure>
+<img src="assets/09-table-management.png"
+alt="Table management" />
+<figcaption aria-hidden="true">Table management</figcaption>
+</figure>
+<p><em>Figure 15 — Table Management: floor view with live table statuses
+and per-table actions.</em></p>
+<p><strong>What you see:</strong> a floor view of tables with live
+status badges (Available, Occupied, Reserved, Running KOT, Paid,
+Cleaning).</p>
+<p><strong>Actions:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Action</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add / Edit / Delete table</td>
+<td>Table number, capacity, label (next number suggested
+automatically)</td>
+</tr>
+<tr>
+<td><strong>New Order</strong></td>
+<td>Starts a dine-in bill on that table</td>
+</tr>
+<tr>
+<td><strong>Table Reservation</strong></td>
+<td>Books the table (opens Reservations)</td>
+</tr>
+<tr>
+<td><strong>Move KOT / Transfer Table</strong></td>
+<td>Moves an open ticket to another table</td>
+</tr>
+<tr>
+<td><strong>Contactless QR</strong></td>
+<td>Generates the table’s QR code for guest self-ordering</td>
+</tr>
+<tr>
+<td><strong>Start New Dine-in Order</strong></td>
+<td>Fresh order on an occupied-but-settled table</td>
+</tr>
+<tr>
+<td><strong>View Settled Bill</strong></td>
+<td>Reopens a completed bill/receipt</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reservations">Reservations</h3>
+<p><strong>Navigation:</strong>
+<code>TABLES &amp; GUESTS → Reservations</code> (permission
+<code>reservations.manage</code>).</p>
+<p><strong>Steps — create a reservation:</strong></p>
+<p>Step 1: Click <strong>New Reservation</strong>.</p>
+<p>Step 2: Enter guest name/phone, date, time, <strong>party
+size</strong>, table, notes.</p>
+<p>Step 3: Save. Status = <strong>PENDING</strong> (or CONFIRMED).</p>
+<p>Step 4: On arrival click <strong>Seat Guest</strong> → status
+<strong>COMPLETED</strong>; the table becomes occupied.</p>
+<p><strong>Statuses:</strong> PENDING → CONFIRMED → COMPLETED; CANCELLED
+at any point before completion.</p>
+<p><strong>Filters:</strong> date, branch, table-view toggle.</p>
+<figure>
+<img src="assets/10-reservations.png"
+alt="Reservations" />
+<figcaption aria-hidden="true">Reservations</figcaption>
+</figure>
+<p><em>Figure 16 — Reservations: date/branch filters, booking list and
+Seat Guest actions.</em></p>
+<hr />
+<h2 id="customers">12. Customers</h2>
+<p><strong>Navigation:</strong> <code>Customer</code> (Branch Manager
+sidebar) or the customer field inside the POS.</p>
+<figure>
+<img src="assets/16-customer-management.png"
+alt="Customer management" />
+<figcaption aria-hidden="true">Customer management</figcaption>
+</figure>
+<p><em>Figure 17 — Customer management list with search, stats and bulk
+actions.</em></p>
+<p><strong>Actions:</strong> Add, Edit, Delete, search, bulk-select,
+<strong>Bulk Message</strong> (WhatsApp), open <strong>Customer
+Details</strong> drawer with <strong>order history</strong>.</p>
+<p><strong>Field reference:</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Yes</td>
+<td>Customer name</td>
+<td>Aarti Verma</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td>Yes (recommended)</td>
+<td>Mobile number — used for WhatsApp messaging and delivery</td>
+<td>98XXXXXXXX</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>No</td>
+<td>Email address</td>
+<td>aarti@example.com</td>
+</tr>
+<tr>
+<td>Address/delivery</td>
+<td>No</td>
+<td>Delivery address for delivery orders</td>
+<td>Flat 4B, MG Road</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why keep customers:</strong> faster billing (search by
+phone), order history, bulk promotional messaging, delivery details.</p>
+<blockquote>
+<p>🔐 <strong>Security:</strong> Customer phone numbers are personal
+data — use <strong>Bulk Message</strong> responsibly and only for
+legitimate order/promotion updates.</p>
+</blockquote>
+<hr />
+<h2 id="online-ordering-and-channels">13. Online Ordering and
+Channels</h2>
+<h3 id="online-orders-board">13.1 Online Orders board</h3>
+<p><strong>Navigation:</strong>
+<code>ORDERING CHANNELS → Online Orders</code></p>
+<figure>
+<img src="assets/18-online-orders-board.png"
+alt="Online Orders board" />
+<figcaption aria-hidden="true">Online Orders board</figcaption>
+</figure>
+<p><em>Figure 18 — Online Orders board: incoming delivery orders with
+Accept / Reject / status actions and channel filters.</em></p>
+<ul>
+<li><strong>Live board</strong> of incoming delivery orders with
+<strong>Accept / Reject / Mark Ready / Complete</strong>.</li>
+<li><strong>Board and table views</strong>; recent online orders
+list.</li>
+<li><strong>New Online Order</strong> — manual entry (customer, type,
+items) for phone/WhatsApp orders.</li>
+<li><strong>Outlet mapping modal</strong> — maps the platform’s store ID
+to your branch (permission-dependent).</li>
+<li>Filters by channel (Swiggy, Zomato, WhatsApp, Website, QR).</li>
+</ul>
+<h3 id="online-channels-swiggy-zomato-website-whatsapp">13.2 Online
+Channels (Swiggy, Zomato, Website, WhatsApp)</h3>
+<p><strong>Navigation:</strong> <code>Online Channels</code> (Franchise
+Owner / Branch Manager / Accountant view for settlements; credentials
+are Super Admin only).</p>
+<p><strong>Tabs:</strong> <strong>Menu Mapping</strong>,
+<strong>Settlements</strong>, <strong>Monitor</strong>, <strong>Webhook
+Logs</strong>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td>Platform: Swiggy, Zomato, Website, QR Ordering, WhatsApp</td>
+</tr>
+<tr>
+<td>Account</td>
+<td>Your credentials connection (Connected / Disconnected)</td>
+</tr>
+<tr>
+<td>Branch mapping</td>
+<td>Links a platform store to an internal branch (external store
+ID)</td>
+</tr>
+<tr>
+<td>Menu mapping</td>
+<td>Maps platform item IDs to your menu items; sync pushes
+availability</td>
+</tr>
+<tr>
+<td>Settlement</td>
+<td>Platform payouts — record, edit, reconcile against orders</td>
+</tr>
+<tr>
+<td>Outlet control</td>
+<td>Take outlet <strong>online</strong>, <strong>pause</strong>,
+<strong>resume</strong> (or pause all)</td>
+</tr>
+<tr>
+<td>Monitor</td>
+<td>Health of the integration, recent order flow</td>
+</tr>
+<tr>
+<td>Webhook logs</td>
+<td>Incoming platform callbacks (Super Admin)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Typical setup (Super Admin):</strong></p>
+<p>Step 1: Open <code>Integrations</code> or
+<code>Online Channels</code> and <strong>connect</strong> the provider
+account with credentials (API key/client ID). Credentials are encrypted
+at rest — never paste them into tickets or chats.</p>
+<p>Step 2: Map each <strong>branch</strong> to its platform store
+ID.</p>
+<p>Step 3: <strong>Sync the menu</strong> and resolve unmapped
+items.</p>
+<p>Step 4: Use <strong>Test</strong> to verify the connection.</p>
+<p>Step 5: Turn the outlet <strong>online</strong>. Incoming orders now
+appear on the Online Orders board.</p>
+<p><strong>Order statuses for channels:</strong> RECEIVED → MAPPED →
+CREATED → ACCEPTED → PREPARING → READY → COMPLETED (or
+CANCELLED/FAILED).</p>
+<p><strong>Failure handling:</strong> permanently failed incoming orders
+raise a notification (<em>INTEGRATION ORDER FAILED</em>) so staff can
+re-enter them manually.</p>
+<h3 id="qr-code-ordering">13.3 QR Code Ordering</h3>
+<p><strong>Navigation:</strong>
+<code>ORDERING CHANNELS → QR Code Ordering</code></p>
+<ul>
+<li>Lists QR-placed orders.</li>
+<li><strong>Generate/download table QR codes</strong> (PNG/PDF) for
+table tents.</li>
+<li>Scanning opens the <strong>guest menu</strong>
+(<code>/guest-menu</code>) for that table — guests order on their own
+phone; the order lands in the POS/board.</li>
+</ul>
+<h3 id="public-order-tracking">13.4 Public order tracking</h3>
+<p><strong>Address:</strong>
+<code>/&lt;your-domain&gt;/track/&lt;order number&gt;</code> — the link
+is printed on the receipt as a QR code (if enabled in Receipt
+Settings).</p>
+<ul>
+<li>Shows a status timeline for that order.</li>
+<li>Auto-refreshes every 15 seconds.</li>
+<li>No login required.</li>
+</ul>
+<figure>
+<img src="assets/02-order-tracking.png"
+alt="Order tracking page" />
+<figcaption aria-hidden="true">Order tracking page</figcaption>
+</figure>
+<p><em>Figure 19 — Public order tracking: status timeline, itemised bill
+and auto-refresh.</em></p>
+<h3 id="guest-menu-qr-self-ordering">13.5 Guest menu (QR
+self-ordering)</h3>
+<p><strong>Address:</strong>
+<code>/&lt;your-domain&gt;/guest-menu</code> (optionally with a table
+number).</p>
+<ul>
+<li>Guest picks items, adds a name/notes, chooses <strong>Pay online
+(Razorpay)</strong> or <strong>Pay at counter</strong>.</li>
+<li>Online payment creates a server-verified payment; the order occupies
+the table.</li>
+<li>Branding and receipt settings come from the branch
+configuration.</li>
+</ul>
+<figure>
+<img src="assets/03-guest-menu.png" alt="Guest menu" />
+<figcaption aria-hidden="true">Guest menu</figcaption>
+</figure>
+<p><em>Figure 20 — Guest menu for table T01: category tabs, item cards
+with Add buttons and running cart.</em></p>
+<hr />
+<h2 id="inventory-and-supply-chain">14. Inventory and Supply Chain</h2>
+<h3 id="inventory-items">14.1 Inventory items</h3>
+<p><strong>Navigation:</strong>
+<code>INVENTORY &amp; SUPPLY → Inventory</code> (permission
+<code>inventory.view</code> / <code>inventory.create</code> /
+<code>inventory.update</code> / <code>inventory.delete</code>).</p>
+<figure>
+<img src="assets/12-inventory.png"
+alt="Inventory list" />
+<figcaption aria-hidden="true">Inventory list</figcaption>
+</figure>
+<p><em>Figure 21 — Inventory list with stock levels, thresholds,
+valuation and the stock-alerts drawer.</em></p>
+<p><strong>What you see:</strong> stock list with valuation, available
+quantity vs thresholds, condition and status badges, an active
+<strong>stock alerts</strong> drawer and a <strong>Reorder</strong>
+action.</p>
+<p><strong>Actions:</strong> Add Item, Bulk upload (xlsx/csv), Adjust
+stock, History (movements), Reorder, search/filter, stock alerts (with
+sound test).</p>
+<p><strong>Field reference:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SKU</td>
+<td>Yes</td>
+<td>Unique stock code</td>
+<td>PAN-001</td>
+</tr>
+<tr>
+<td>Barcode</td>
+<td>No</td>
+<td>Scannable code</td>
+<td>8901234567890</td>
+</tr>
+<tr>
+<td>Name/description</td>
+<td>Yes</td>
+<td>Ingredient/product</td>
+<td>Paneer</td>
+</tr>
+<tr>
+<td>Unit</td>
+<td>Yes</td>
+<td>kg, g, L, ml, pcs, dz, pk, btl, box, bag</td>
+<td>kg</td>
+</tr>
+<tr>
+<td>Purchase quantity</td>
+<td>No</td>
+<td>Standard pack size purchased</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Available quantity</td>
+<td>Yes</td>
+<td>Current stock on hand</td>
+<td>12.5</td>
+</tr>
+<tr>
+<td>Minimum level</td>
+<td>No</td>
+<td>Warning threshold</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Reorder level</td>
+<td>No</td>
+<td>Triggers <em>low stock</em> alert</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Critical level</td>
+<td>No</td>
+<td>Triggers <em>critical</em> alert</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Cost per unit</td>
+<td>No</td>
+<td>Purchase cost</td>
+<td>320</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td>Yes</td>
+<td>Good / Damaged / Defective / Quarantine</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Lifecycle</td>
+<td>Yes</td>
+<td>Active / Pending / Blocked / Obsolete</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>Yes</td>
+<td>Which outlet owns the stock</td>
+<td>FA-MAIN</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Business rules:</strong></p>
+<ul>
+<li>Every change writes a <strong>stock movement</strong> with the
+before/after quantity and a reason.</li>
+<li>Movement types: <code>ADJUSTMENT</code>, <code>RESTOCK</code>,
+<code>CONSUMED</code>, <code>WASTE</code>, <code>TRANSFER_OUT</code>,
+<code>TRANSFER_IN</code>.</li>
+<li>When an order moves to PREPARING/READY/SERVED, recipe ingredients
+are deducted (<code>CONSUMED</code>) — once per order.</li>
+<li>Receiving a purchase order increases stock
+(<code>RESTOCK</code>).</li>
+</ul>
+<h3 id="stock-adjustment-and-stock-adjustments-page">14.2 Stock
+adjustment and stock adjustments page</h3>
+<p><strong>Navigation:</strong> list of adjustments + <strong>New Stock
+Adjustment</strong> (type, unit, quantity, reason) →
+<strong>Save</strong>.</p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> This page is reachable by URL
+(<code>/stock-adjustment</code>) and is not shown in the sidebar by
+default. Prefer the <strong>Adjust stock</strong> action inside the
+Inventory page.</p>
+</blockquote>
+<h3 id="stock-alerts">14.3 Stock alerts</h3>
+<ul>
+<li>Evaluated automatically (scheduled job; also reconciled after each
+order deducts stock).</li>
+<li>Thresholds: <strong>reorder level</strong> → <code>low</code>,
+<strong>critical level</strong> → <code>critical</code>, zero →
+<code>out_of_stock</code>.</li>
+<li>Raises an in-app <strong>notification</strong> (bell) with item
+name, quantity, level and unit, and emails configured recipients.</li>
+<li>Inventory dashboard shows <em>Low Stock</em> and <em>Out of
+Stock</em> counts; marketplaces can be auto-updated to unavailable when
+an item hits zero.</li>
+</ul>
+<h3 id="vendors">14.4 Vendors</h3>
+<p><strong>Navigation:</strong>
+<code>INVENTORY &amp; SUPPLY → Vendors</code> (permission
+<code>vendors.view/create/update/delete</code>).</p>
+<p><strong>Actions:</strong> Add/Edit vendor, view outstanding balance,
+payment terms, <strong>Pay vendor</strong> (bank/UPI/cash/cheque, IFSC
+details), reminder days, auto receipt, payment receipt history.</p>
+<p><strong>Field reference:</strong> name, contact person, phone, email,
+address, payment terms, bank/UPI details.</p>
+<h3 id="purchase-orders">14.5 Purchase orders</h3>
+<p><strong>Navigation:</strong>
+<code>INVENTORY &amp; SUPPLY → Purchase Orders</code> (permission
+<code>purchase_orders.view/create/update/delete</code>).</p>
+<p><strong>Steps — create and receive a PO:</strong></p>
+<p>Step 1: Click <strong>New PO</strong>.</p>
+<p>Step 2: Choose the <strong>vendor</strong>, add
+<strong>items</strong> (quantity, rate, tax), set the expected date.
+<strong>Save as Draft</strong> if not ready.</p>
+<p>Step 3: Send it (status <strong>SENT</strong> →
+<strong>PENDING</strong>).</p>
+<p>Step 4: On delivery click <strong>Receive</strong> and enter the
+<strong>received quantity per line</strong>. Stock is restocked
+(<code>RESTOCK</code> movement).</p>
+<p>Step 5: Click <strong>Record Payment</strong> to pay the vendor (full
+or partial).</p>
+<p><strong>Statuses:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Order status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAFT</td>
+<td>Not sent yet</td>
+</tr>
+<tr>
+<td>SENT</td>
+<td>Sent to vendor, awaiting response</td>
+</tr>
+<tr>
+<td>PENDING</td>
+<td>Awaiting delivery</td>
+</tr>
+<tr>
+<td>PARTIALLY_RECEIVED</td>
+<td>Some lines received</td>
+</tr>
+<tr>
+<td>DELIVERED</td>
+<td>Fully received</td>
+</tr>
+<tr>
+<td>CANCELLED</td>
+<td>Stopped</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Payment status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UNPAID / PARTIALLY_PAID / PAID / OVERDUE</td>
+<td>Vendor settlement state</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ITC fields (GST):</strong> each line records
+CGST/SGST/IGST/Cess and whether it is <strong>ITC-eligible</strong>; the
+PO summary shows eligible/ineligible Input Tax Credit and net liability
+for the Accountant’s Tax dashboard.</p>
+<figure>
+<img src="assets/19-purchase-orders.png"
+alt="Purchase orders" />
+<figcaption aria-hidden="true">Purchase orders</figcaption>
+</figure>
+<p><em>Figure 22 — Purchase orders: status and payment badges,
+receive/payment actions and ITC summary.</em></p>
+<h3 id="stock-transfers-between-branches">14.6 Stock transfers between
+branches</h3>
+<p><strong>Navigation:</strong> Inventory transfers are managed from the
+admin branch-transfer controls (permission
+<code>branches.transfer</code> / <code>inventory.update</code>).</p>
+<p><strong>Lifecycle:</strong>
+<code>REQUESTED → APPROVED → IN_TRANSIT → COMPLETED</code> (or
+REJECTED/CANCELLED). Item-level states: PENDING → IN_TRANSIT → RECEIVED
+(or MISSING).</p>
+<ul>
+<li>Source branch ships (stock moves out) and destination receives
+(stock moves in).</li>
+<li>Movements are recorded as <code>TRANSFER_OUT</code> /
+<code>TRANSFER_IN</code>.</li>
+</ul>
+<hr />
+<h2 id="finance">15. Finance</h2>
+<h3 id="cash-drawer">15.1 Cash Drawer</h3>
+<p><strong>Navigation:</strong> <code>FINANCE → Cash Drawer</code> —
+full procedure in Section 7.12.</p>
+<p><strong>Additional features:</strong> <strong>Cash Movement</strong>
+(cash in/withdrawal), session summary, expected vs counted, float growth
+chart, <strong>drawer history</strong>, <strong>Re-open</strong> a
+closed drawer (permission-gated).</p>
+<figure>
+<img src="assets/13-cash-drawer.png" alt="Cash drawer" />
+<figcaption aria-hidden="true">Cash drawer</figcaption>
+</figure>
+<p><em>Figure 23 — Cash Drawer: open/close, session summary, expected vs
+counted cash and history.</em></p>
+<h3 id="expenses">15.2 Expenses</h3>
+<p><strong>Navigation:</strong> <code>FINANCE → Expenses</code>
+(permission <code>finance.expenses</code> /
+<code>finance.view</code>).</p>
+<p><strong>Actions:</strong> Add Expense, Edit, delete, filter by
+category/method/date, <strong>Edit Expense Types</strong>,
+spending-by-category chart.</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expense type</td>
+<td>Yes</td>
+<td>Electricity, Gas/LPG, Maintenance, Cleaning, Staff Welfare,
+Marketing, Transportation, Miscellaneous (default set)</td>
+<td>Electricity</td>
+</tr>
+<tr>
+<td>Amount</td>
+<td>Yes</td>
+<td>Value</td>
+<td>4500</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>Yes</td>
+<td>Occurrence date</td>
+<td>07-10-2026</td>
+</tr>
+<tr>
+<td>Payment method</td>
+<td>Yes</td>
+<td>Cash / UPI / Bank…</td>
+<td>Bank Transfer</td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>No</td>
+<td>Description</td>
+<td>Oct bill</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>Yes</td>
+<td>Outlet charged</td>
+<td>FA-MAIN</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Cash expenses paid from the open drawer
+reduce its expected balance.</p>
+</blockquote>
+<h3 id="refunds-and-voids">15.3 Refunds and Voids</h3>
+<p><strong>Navigation:</strong> <code>FINANCE → Refunds / Voids</code>
+(permission <code>finance.refunds</code>; approval needs
+<code>finance.refunds.approve</code>).</p>
+<p><strong>Creating a refund:</strong></p>
+<p>Step 1: Click <strong>New Refund Request</strong> (or cancel a paid
+order, which auto-creates one).</p>
+<p>Step 2: Select an <strong>eligible order</strong> (status PENDING,
+PREPARING, READY, SERVED or COMPLETED).</p>
+<p>Step 3: Choose <strong>FULL</strong> (must equal the grand total) or
+<strong>PARTIAL</strong> (greater than zero, not above the grand total)
+and enter the amount/reason.</p>
+<p>Step 4: Submit. The refund gets a unique number
+(<code>REF-0001-…</code>) and status <strong>REQUESTED</strong>.</p>
+<p><strong>Approval workflow:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>From</th>
+<th>To</th>
+<th>Who</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REQUESTED</td>
+<td>APPROVED or REJECTED</td>
+<td>Approver (not the requester — self-approval is blocked)</td>
+</tr>
+<tr>
+<td>APPROVED</td>
+<td>SUCCESS or FAILED</td>
+<td>Payment execution</td>
+</tr>
+<tr>
+<td>REJECTED</td>
+<td>REQUESTED</td>
+<td>Re-open for review</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Viewing scope:</strong> Super Admin sees all refunds; branch
+users see their branch; others see only refunds they processed.</li>
+<li><strong>Delete</strong> allowed only while REQUESTED or
+REJECTED.</li>
+<li><strong>Void details</strong> modal shows voided carts with
+reasons.</li>
+</ul>
+<figure>
+<img src="assets/14-refunds-voids.png"
+alt="Refunds and voids" />
+<figcaption aria-hidden="true">Refunds and voids</figcaption>
+</figure>
+<p><em>Figure 24 — Refunds / Voids: refund requests, status workflow and
+void details.</em></p>
+<h3 id="tax-compliance-gst">15.4 Tax &amp; Compliance (GST)</h3>
+<p><strong>Navigation:</strong>
+<code>FINANCE → Tax &amp; Compliance</code> (tabs:
+<strong>Dashboard</strong>, <strong>Tax Rules</strong>,
+<strong>Registrations</strong>).</p>
+<p><strong>Tax Rules tab:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tax type</td>
+<td>GST / VAT / Service charge / Custom</td>
+</tr>
+<tr>
+<td>Rate</td>
+<td>Percentage</td>
+</tr>
+<tr>
+<td>Apply on</td>
+<td>All items / specific category / specific item</td>
+</tr>
+<tr>
+<td>Inclusive</td>
+<td>Price includes tax vs added on top</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Franchise-wide or specific branch</td>
+</tr>
+<tr>
+<td>Active</td>
+<td>On/off</td>
+</tr>
+</tbody>
+</table>
+<p>Actions: create, edit, delete, view <strong>resolved</strong> rules
+(what actually applies per branch), <strong>calculate</strong> (preview
+a tax computation).</p>
+<p><strong>Dashboard tab (GST):</strong> GST status per branch, toggle
+GST for a branch (<code>branch-gst-toggle</code>), fiscal-year view,
+drill-down by period, collected vs payable.</p>
+<p><strong>Registrations tab:</strong> add GST registrations, set a
+default registration, edit/remove.</p>
+<p><strong>Compliance tab:</strong> compliance records (e.g. GSTR-1,
+GSTR-3B) with statuses <code>OPEN → DUE → FILED</code> (or
+LATE_FILED/WAIVED); create, edit, delete.</p>
+<p><strong>Payments tracker:</strong> record GST payments (add/delete),
+view the tracker.</p>
+<figure>
+<img src="assets/20-tax-compliance.png"
+alt="Tax and compliance" />
+<figcaption aria-hidden="true">Tax and compliance</figcaption>
+</figure>
+<p><em>Figure 25 — Tax &amp; Compliance: GST dashboard with tax rules
+and registrations tabs.</em></p>
+<blockquote>
+<p>🔐 <strong>Security:</strong> Tax configuration is permission-gated
+(<code>tax.view</code> / <code>tax.manage</code>). Franchise owners can
+manage tax only when the platform grants <em>GST control</em> to their
+franchise.</p>
+</blockquote>
+<h3 id="franchise-payments">15.5 Franchise Payments</h3>
+<p><strong>Navigation (owner):</strong> profit distribution per branch —
+calculate a month, see gross profit, franchise fee, royalty, net profit.
+<strong>Navigation (admin):</strong> <code>franchise payments</code>
+list with view/create/edit (permission
+<code>franchise_payments.view/manage</code>).</p>
+<h3 id="channel-settlements-accountant">15.6 Channel settlements
+(Accountant)</h3>
+<p><strong>Navigation:</strong> <code>Channel Settlements</code>
+(Accountant) — payouts from Swiggy/Zomato: record, edit,
+<strong>reconcile</strong> against order totals
+(<code>settlements/:id/reconcile</code>).</p>
+<hr />
+<h2 id="staff-management">16. Staff Management</h2>
+<h3 id="employees">16.1 Employees</h3>
+<p><strong>Navigation:</strong> <code>STAFF → Employees</code>
+(permission <code>staff.view/create/update/delete</code>).</p>
+<p><strong>Actions:</strong> Add Employee, Edit, Delete, open
+<strong>Employee Profile</strong>, filter by role/branch/status, stats
+cards.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Yes</td>
+<td>Full name</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>Yes</td>
+<td>Login identifier (unique)</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>Yes</td>
+<td>Login + notifications (unique)</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td>No</td>
+<td>Contact</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>Yes (create)</td>
+<td>Initial password (user should change it)</td>
+</tr>
+<tr>
+<td>Role</td>
+<td>Yes</td>
+<td>One of the seven roles</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>Yes*</td>
+<td>Outlet assignment (*franchise-level users may have none)</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Yes</td>
+<td>ACTIVE / INACTIVE</td>
+</tr>
+<tr>
+<td>App PIN</td>
+<td>No</td>
+<td>4-digit PIN set via <strong>Set PIN</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Row/user actions:</strong> edit, change status, <strong>Reset
+Password</strong>, <strong>Set PIN</strong>, delete.</p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> Never create one shared login for “the
+counter”. Every human gets their own account so audit logs and refunds
+stay attributable.</p>
+</blockquote>
+<h3 id="shifts">16.2 Shifts</h3>
+<p><strong>Navigation:</strong> <code>STAFF → Shifts</code> (permission
+<code>shifts.view</code> / <code>shifts.manage</code>) — shows
+<em>Access Denied</em> without permission.</p>
+<ul>
+<li>Default shifts: <strong>Morning 06:00–14:00</strong>,
+<strong>Afternoon 14:00–22:00</strong>, <strong>Night
+22:00–06:00</strong>, <strong>Full Day 09:00–21:00</strong>.</li>
+<li>Actions: add/delete a shift (name, start, end, overnight flag),
+<strong>assign</strong> employees to shifts, unassign, view the
+roster.</li>
+</ul>
+<h3 id="attendance">16.3 Attendance</h3>
+<p><strong>Navigation:</strong> <code>STAFF → Attendance</code> (also
+<code>Attendance &amp; Shifts</code> for
+Cashier/Kitchen/Inventory/Accountant) — permission
+<code>attendance.view</code> / <code>attendance.manage</code>.</p>
+<p><strong>Daily roll call:</strong></p>
+<p>Step 1: Open Attendance for today’s date/branch.</p>
+<p>Step 2: Use <strong>Mark all present</strong>, or set each employee
+to <strong>Present / Late / Absent / Leave</strong>.</p>
+<p>Step 3: Record <strong>check-in / check-out</strong> times and
+remarks as needed. Save.</p>
+<p><strong>History tab:</strong> filter past days with status filters;
+<strong>Adjust Attendance</strong> to correct a record.</p>
+<p><strong>Statuses:</strong> PRESENT, ABSENT, LATE, ON_LEAVE.</p>
+<h3 id="attendance-reports">16.4 Attendance reports</h3>
+<p><strong>Navigation:</strong> <code>STAFF → Attendance Reports</code>
+(aliases: Attendance Reports, Reports → Attendance).</p>
+<ul>
+<li><strong>Timesheet matrix</strong> and <strong>detailed
+logs</strong>.</li>
+<li>Filters: branch, employee, status, date range.</li>
+<li>Shows working hours; <strong>CSV export</strong>; legend;
+pagination.</li>
+</ul>
+<hr />
+<h2 id="reports-analytics-and-data">17. Reports, Analytics and Data</h2>
+<h3 id="reports-analytics">17.1 Reports &amp; Analytics</h3>
+<p><strong>Navigation:</strong> <code>Reports &amp; Analytics</code>
+(permission <code>reports.view</code>).</p>
+<figure>
+<img src="assets/15-reports-analytics.png"
+alt="Reports and Analytics" />
+<figcaption aria-hidden="true">Reports and Analytics</figcaption>
+</figure>
+<p><em>Figure 26 — Reports &amp; Analytics with date/branch filters,
+revenue and order charts, payment mix and top items.</em></p>
+<p><strong>Filters:</strong> date range / month, branch.</p>
+<p><strong>Contents:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Section</th>
+<th>What it tells you</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Revenue &amp; Orders charts</td>
+<td>Trend of revenue and order volume over the period</td>
+</tr>
+<tr>
+<td>Key metrics</td>
+<td>Total revenue, total orders, average order value, best month</td>
+</tr>
+<tr>
+<td>Top branches</td>
+<td>Branches ranked by revenue</td>
+</tr>
+<tr>
+<td>Branch-wise revenue share</td>
+<td>Proportional contribution per outlet</td>
+</tr>
+<tr>
+<td>Payment methods</td>
+<td>Cash/UPI/Card… mix</td>
+</tr>
+<tr>
+<td>Top selling items</td>
+<td>Best sellers by quantity/revenue</td>
+</tr>
+<tr>
+<td>Busiest days</td>
+<td>Which days of the week are busiest</td>
+</tr>
+<tr>
+<td>Payment mix / order-type mix</td>
+<td>How orders are paid and where they come from</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Export:</strong> CSV download from the reports page / Data
+Export (Section 17.4).</p>
+<p><strong>How to generate:</strong> set the range and branch → the
+charts and tables recalculate automatically → export if needed.</p>
+<p><strong>Interpretation:</strong> figures are aggregated for your
+scope (Super Admin = all; Franchise Owner = your branches; others = your
+branch) and respect the selected dates in IST.</p>
+<h3 id="branch-comparison">17.2 Branch Comparison</h3>
+<p><strong>Navigation:</strong> <code>Branch Comparison</code> —
+side-by-side branch performance across months (revenue and orders
+charts, performance radar, daily breakdown). Permission:
+<code>branch_comparison.view</code> or <code>reports.view</code>.</p>
+<h3 id="franchise-comparison">17.3 Franchise Comparison</h3>
+<p><strong>Navigation:</strong> <code>Franchise Reports</code> —
+cross-franchise aggregates. <strong>Restricted to Super Admin /
+Franchise Owner level accounts (role IDs 1–2).</strong> Others see
+<em>Super Admin Access Only</em>.</p>
+<h3 id="data-export">17.4 Data Export</h3>
+<p><strong>Navigation:</strong> <code>Data Export</code> (also reachable
+at the <code>/delivery</code> URL, which currently renders the export
+page).</p>
+<p>Step 1: Choose an export type: <strong>Sales/Orders, Expenses,
+Inventory, Vendors, Vendor Payments, Staff, Reservations, Purchase
+Orders, GST</strong>.</p>
+<p>Step 2: Set <strong>date range</strong> (from/to) and branch (branch
+choice is Super Admin only).</p>
+<p>Step 3: Click export/download. A CSV is produced.</p>
+<p>Permission: <code>data_export.access</code> or
+<code>reports.export</code>.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Exports contain business and customer
+data. Save them only to trusted locations and delete them when no longer
+needed.</p>
+</blockquote>
+<h3 id="audit-logs">17.5 Audit Logs</h3>
+<p><strong>Navigation:</strong> <code>SYSTEM → Audit Logs</code>
+(permission <code>audit_logs.view</code>).</p>
+<ul>
+<li><strong>What is recorded:</strong> every create/update/delete action
+— module, user, IP address, browser/user-agent, status (SUCCESS/FAILED)
+and timestamp.</li>
+<li><strong>Search/filter:</strong> free-text search, category, branch,
+status, date range.</li>
+<li><strong>Details drawer:</strong> full payload of the action with a
+copy-as-JSON button.</li>
+<li><strong>Export:</strong> CSV.</li>
+<li><strong>Who can see it:</strong> Super Admin and Franchise Owner
+(permission-gated).</li>
+</ul>
+<p>Use audit logs to answer “who changed this price/order/refund and
+when?”.</p>
+<figure>
+<img src="assets/27-audit-logs.png" alt="Audit logs" />
+<figcaption aria-hidden="true">Audit logs</figcaption>
+</figure>
+<p><em>Figure 27 — Audit Logs with search, filters, status column and
+the details drawer.</em></p>
+<hr />
+<h2 id="administration">18. Administration</h2>
+<h3 id="users">18.1 Users</h3>
+<p><strong>Navigation:</strong> <code>Users</code> (permission
+<code>staff.view</code> / <code>users.manage</code> — Super Admin,
+Franchise Owner).</p>
+<figure>
+<img src="assets/23-user-management.png"
+alt="User management" />
+<figcaption aria-hidden="true">User management</figcaption>
+</figure>
+<p><em>Figure 28 — User management: account list with role/branch,
+status controls, Reset Password and Set PIN actions.</em></p>
+<p><strong>Actions:</strong> Add User, Edit, Delete, change status,
+<strong>Reset Password</strong>, <strong>Set PIN</strong> (4-digit),
+open profile.</p>
+<p><strong>Steps — create a user:</strong></p>
+<p>Step 1: Click <strong>Add User</strong>.</p>
+<p>Step 2: Enter name, username, email, phone, initial password,
+<strong>role</strong>, <strong>branch</strong> and status.</p>
+<p>Step 3: Save. The person can now log in (Section 3.2).</p>
+<p><strong>Steps — reset a password:</strong></p>
+<p>Step 1: Find the user → <strong>Reset Password</strong>.</p>
+<p>Step 2: Enter the new password → confirm. The user logs in with it
+next time.</p>
+<p><strong>Field validation notes:</strong> username and email must be
+unique; role is mandatory; branch is mandatory for branch-scoped roles
+(a user with no branch cannot perform branch-scoped operations).</p>
+<h3 id="branches">18.2 Branches</h3>
+<p><strong>Navigation:</strong> <code>Multi Branch</code> (Franchise
+Owner) / <code>Franchise → branches</code> (Super Admin). Permission
+<code>branches.view/create/update/delete</code>.</p>
+<p><strong>Actions:</strong> Add/Edit/Delete branch, <strong>bulk
+upload</strong> branches, assign/remove a <strong>manager</strong>, view
+per-branch stats (orders, revenue, tables), <strong>Transfer
+Menu</strong>, <strong>Transfers</strong>, <strong>Transfer
+Franchise</strong> (move a branch to another owner — Super Admin),
+<strong>Transfer History</strong>.</p>
+<p><strong>Key branch fields:</strong> name, code (unique — used by
+offline mode and QR), franchise name, city/location, phone, email,
+address, <strong>GST number</strong>, <strong>GST enabled</strong> flag,
+table count, status, <strong>offline orders enabled</strong> + offline
+threshold hours, manager.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Deleting a branch is a destructive
+action (it moves to the Recycle Bin). Do not delete a branch that still
+has open orders or historical reports you need.</p>
+</blockquote>
+<h3 id="franchise-management-tenants">18.3 Franchise management
+(Tenants)</h3>
+<p><strong>Navigation:</strong>
+<code>PLATFORM MANAGEMENT → Franchise</code> (Super Admin only).
+Permission <code>tenants.view/create/update/delete</code>.</p>
+<p><strong>Actions:</strong> list with status filters
+(Active/Inactive/Suspended/Deleted), Add/Edit/Delete franchise (business
+profile, subscription plan, owner credentials), <strong>manage that
+franchise’s branches</strong>, transfer menu, <strong>bulk
+upload</strong> (download template → preview import → confirm import),
+<strong>GST control grant/revoke</strong>, <strong>branding control
+grant/revoke</strong>.</p>
+<p><strong>Feature switches per franchise:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GST control allowed</td>
+<td>The franchise owner may manage tax rules</td>
+</tr>
+<tr>
+<td>Branding control allowed</td>
+<td>The owner may change branding</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="assets/25-franchise-management.png"
+alt="Franchise management" />
+<figcaption aria-hidden="true">Franchise management</figcaption>
+</figure>
+<p><em>Figure 29 — Franchise management: tenant list with status filters
+and per-franchise actions.</em></p>
+<h3 id="leads-demos">18.4 Leads &amp; Demos</h3>
+<p><strong>Navigation:</strong>
+<code>PLATFORM MANAGEMENT → Leads &amp; Demos</code> — a small CRM for
+inbound demo requests.</p>
+<ul>
+<li>Pipeline statuses: <strong>NEW → CONTACTED → DEMO_SCHEDULED →
+CONVERTED / LOST</strong>.</li>
+<li>Actions: Add Lead, edit, delete, filter, <strong>export</strong>,
+WhatsApp/email actions.</li>
+<li>Leads arrive from the public demo-booking form.</li>
+</ul>
+<h3 id="subscriptions-plans-and-transactions">18.5 Subscriptions, Plans
+and Transactions</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Page</th>
+<th>Navigation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription Plans</td>
+<td><code>PLATFORM MANAGEMENT → Subscription Plans</code></td>
+<td>Create/edit plan catalog: price, billing cycle
+(Monthly/Quarterly/Yearly), <strong>max branches</strong>, <strong>max
+users</strong>, features. Archive/delete</td>
+</tr>
+<tr>
+<td>Subscriptions</td>
+<td><code>Subscriptions</code> (owner)</td>
+<td>Your plan, status, upgrade, billing/invoice history with
+<strong>View E-Receipt / PDF</strong></td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td><code>PLATFORM MANAGEMENT → Transactions</code></td>
+<td>All franchise subscription payments with status/search and per-row
+<strong>invoice</strong> download</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Statuses:</strong> subscription
+<code>ACTIVE / EXPIRED / CANCELLED / TRIAL / SUSPENDED</code>; payment
+<code>PENDING / PAID / FAILED / REFUNDED</code>.</p>
+<p><strong>Plan limits are enforced:</strong> you cannot exceed the
+plan’s maximum branches/users.</p>
+<p><strong>Upgrade flow:</strong> choose plan → create payment order →
+pay (Razorpay/Stripe) → payment verified → new plan active.</p>
+<h3 id="receipt-settings">18.6 Receipt Settings</h3>
+<p><strong>Navigation:</strong>
+<code>ADMINISTRATION → Receipt Settings</code> (permission
+<code>receipt_settings.manage</code>) — per branch.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Header / footer text</td>
+<td>Printed top/bottom of the bill</td>
+</tr>
+<tr>
+<td>Logo</td>
+<td>Image printed on receipts</td>
+</tr>
+<tr>
+<td>QR code toggle</td>
+<td>Prints order-tracking QR</td>
+</tr>
+<tr>
+<td>GST number / GST enabled</td>
+<td>GSTIN printed + tax display</td>
+</tr>
+<tr>
+<td>FSSAI number</td>
+<td>Food-safety licence number printed</td>
+</tr>
+<tr>
+<td>Paper size</td>
+<td><strong>58 mm</strong> or <strong>80 mm</strong></td>
+</tr>
+<tr>
+<td>Display toggles</td>
+<td>Show/hide QR, server name, and other fields</td>
+</tr>
+<tr>
+<td>Live preview</td>
+<td>See the receipt as you edit</td>
+</tr>
+</tbody>
+</table>
+<p>Changes affect the next printed receipt — no restart needed.</p>
+<figure>
+<img src="assets/17-receipt-settings.png"
+alt="Receipt settings" />
+<figcaption aria-hidden="true">Receipt settings</figcaption>
+</figure>
+<p><em>Figure 30 — Receipt Settings with live preview: header, logo,
+GST/FSSAI, paper size and display toggles.</em></p>
+<h3 id="settings">18.7 Settings</h3>
+<p><strong>Navigation:</strong> <code>Settings</code> (permission-gated;
+some tabs restricted).</p>
+<figure>
+<img src="assets/24-settings.png" alt="Settings page" />
+<figcaption aria-hidden="true">Settings page</figcaption>
+</figure>
+<p><em>Figure 31 — Settings with its eight tabs (Franchise &amp; Branch,
+Theme &amp; Colors, Hardware &amp; Printer, Branding, Login Screen,
+Invoice &amp; Billing, Payment Methods, Backup &amp; Restore).</em></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Contains</th>
+<th>Who can change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Franchise &amp; Branch</strong></td>
+<td>Branch identity, contact channels, operational toggles</td>
+<td>Owner/Manager</td>
+</tr>
+<tr>
+<td><strong>Theme &amp; Colors</strong></td>
+<td>Light/dark mode, accent palette (Ocean Blue, Churi Crimson, Emerald,
+Purple, Orange, Red, Teal, custom)</td>
+<td>Owner/Manager</td>
+</tr>
+<tr>
+<td><strong>Hardware &amp; Printer</strong></td>
+<td>Thermal printer, network IP, barcode scanner configuration</td>
+<td>Owner/Manager</td>
+</tr>
+<tr>
+<td><strong>Branding</strong></td>
+<td>Brand logos, favicon, receipt headers</td>
+<td>Owner/Manager (or read-only if branding is platform-managed)</td>
+</tr>
+<tr>
+<td><strong>Login Screen</strong></td>
+<td>Hero content on the login page’s left panel (heading, subtitle,
+feature pills)</td>
+<td>Owner/Manager</td>
+</tr>
+<tr>
+<td><strong>Invoice &amp; Billing</strong></td>
+<td>Company identity, GST details, terms printed on <strong>subscription
+invoices</strong></td>
+<td><strong>Super Admin only</strong></td>
+</tr>
+<tr>
+<td><strong>Payment Methods</strong></td>
+<td>Payment methods and tender options shown on the billing
+terminal</td>
+<td>Owner/Manager</td>
+</tr>
+<tr>
+<td><strong>Backup &amp; Restore</strong></td>
+<td>Database snapshots and restoration (also has its own page)</td>
+<td>Owner/Manager with backup permission</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Warning — dangerous settings:</strong> - <strong>Backup
+&amp; Restore (restore)</strong> overwrites current data with a
+snapshot. Always take a fresh snapshot first and only restore during a
+planned maintenance window. - Disabling <strong>GST</strong> on a branch
+stops GST being charged — fix only if you are certain. - Changing
+<strong>payment methods</strong> hides tenders from cashiers
+immediately.</p>
+</blockquote>
+<h3 id="advertisements-and-ad-creative-builder">18.8 Advertisements and
+Ad Creative Builder</h3>
+<p><strong>Navigation:</strong> <code>MARKETING → Advertisements</code>;
+Ad Creative Builder at <code>/ad-builder</code> (direct URL).</p>
+<ul>
+<li><strong>Advertisements:</strong> upload posters, set placement,
+priority and target branch; edit/toggle/delete; preview; sample
+templates. Visible in the header ad strip and POS promotions.</li>
+<li><strong>Ad Creative Builder:</strong> design promotional graphics
+from menu items — pick a template, adjust the color palette, upload the
+brand logo, edit text, <strong>download SVG</strong>.</li>
+</ul>
+<h3 id="recycle-bin">18.9 Recycle Bin</h3>
+<p><strong>Navigation:</strong> <code>SYSTEM → Recycle Bin</code>
+(permission <code>recycle_bin.access</code>).</p>
+<p><strong>What it is:</strong> a safety net. Deleted records from
+supported modules (menu items, branches, inventory, vendors,
+reservations, customers, expenses, orders, tables, categories,
+attendance, purchase orders, refunds, advertisements, combos, offers,
+franchises, users, tax rules…) are parked here before they are gone
+forever.</p>
+<p><strong>Actions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Restore</strong></td>
+<td>Brings the record back to active status</td>
+</tr>
+<tr>
+<td><strong>Delete Forever</strong></td>
+<td><strong>Irreversible</strong> permanent deletion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Filters:</strong> module, date, deleted-by.</p>
+<blockquote>
+<p>🚨 <strong>Important:</strong> <em>Delete Forever</em> cannot be
+undone. Restore instead whenever there is any doubt.</p>
+</blockquote>
+<h3 id="backup-recovery">18.10 Backup &amp; Recovery</h3>
+<p><strong>Navigation:</strong>
+<code>SYSTEM → Backup &amp; Recovery</code> (permissions
+<code>backup.view/create/download/delete/restore</code>).</p>
+<p><strong>Actions:</strong></p>
+<ul>
+<li><strong>Take Snapshot</strong> — create a backup now (types: FULL,
+DATA-ONLY, ASSETS-ONLY; scope: SYSTEM / ORGANIZATION / BRANCH).</li>
+<li><strong>Snapshot archive table</strong> — list with scope filters,
+status (PENDING → PROCESSING → COMPLETED / FAILED), pagination.</li>
+<li><strong>Download</strong> a snapshot, <strong>Delete</strong> a
+snapshot.</li>
+<li><strong>Schedule</strong> — automatic backups with a configurable
+timer.</li>
+<li><strong>Restore</strong> — preview a restore first, then execute;
+you can also <strong>upload</strong> a backup file (preview →
+execute).</li>
+</ul>
+<p><strong>Scope rules:</strong> System scope = Super Admin;
+Organization = Super Admin/Franchise Owner; Branch = all roles with
+permission.</p>
+<figure>
+<img src="assets/26-backup-recovery.png"
+alt="Backup and recovery" />
+<figcaption aria-hidden="true">Backup and recovery</figcaption>
+</figure>
+<p><em>Figure 32 — Backup &amp; Recovery: take a snapshot, schedule
+backups, download and restore.</em></p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Restoring replaces current data. Take a
+fresh snapshot before restoring, and never restore a foreign backup into
+a live system.</p>
+</blockquote>
+<h3 id="integrations">18.11 Integrations</h3>
+<p><strong>Navigation:</strong>
+<code>PLATFORM MANAGEMENT → Integrations</code> (Super Admin only).</p>
+<p><strong>Status cards:</strong> <em>Live</em>, <em>Configured</em>,
+<em>Needs Setup</em>, <em>Inactive</em> — covering payment gateway
+(Razorpay/Stripe), notification/printer, <strong>email (SMTP)</strong>,
+online channels and <strong>Meta WhatsApp</strong>.</p>
+<p><strong>Steps — configure an integration:</strong></p>
+<p>Step 1: Open <strong>Integrations</strong> and choose the
+integration.</p>
+<p>Step 2: Enter credentials/config fields (placeholders only in docs —
+never share real keys: <code>YOUR_API_KEY</code>,
+<code>YOUR_SECRET</code>, <code>YOUR_WEBHOOK_URL</code>).</p>
+<p>Step 3: Click <strong>Test</strong> — SMTP settings run a real
+connection test; others call a test URL.</p>
+<p>Step 4: Save. The card turns <em>Live/Configured</em>.</p>
+<p><strong>Enable/disable:</strong> edit the integration or disconnect
+it from the relevant page (channel accounts have <strong>Connect /
+Disconnect / Test / Rotate credentials</strong>).</p>
+<blockquote>
+<p>🔐 <strong>Security:</strong> API keys, SMTP passwords, webhook
+secrets and WhatsApp tokens are stored <strong>encrypted</strong>. Never
+paste them into chat, email, screenshots or tickets.</p>
+</blockquote>
+<h3 id="whatsapp-notifications-console">18.12 WhatsApp Notifications
+console</h3>
+<p><strong>Navigation:</strong> <code>WhatsApp Notifications</code>
+(Super Admin only — others see <em>Super Admin Access
+Required</em>).</p>
+<p><strong>Tabs:</strong> <strong>Config</strong> (Meta WhatsApp
+Business: WABA ID, phone number ID, API version, tokens),
+<strong>Branches</strong> (per-branch toggles/overrides),
+<strong>Inbound</strong> (messages received), <strong>Logs</strong>
+(sent message status), plus a <strong>test message</strong>
+dispatch.</p>
+<p><strong>Automatic order messages</strong> (templates, UTILITY,
+English): order confirmed, preparing, ready, completed, cancelled — sent
+as an outbox message
+(<code>QUEUED → PROCESSING → SENT → DELIVERED/READ</code>, or
+<code>FAILED</code> with automatic retries).</p>
+<p><strong>Per-event toggles:</strong> notify on created / preparing /
+ready / completed / cancelled. Branches can override the global
+setting.</p>
+<h3 id="offline-reconciliation">18.13 Offline Reconciliation</h3>
+<p><strong>Navigation:</strong> <code>Offline Orders</code> /
+<code>Offline Orders → Offline Reconciliation</code> (permission-gated;
+Super Admin, Franchise Owner, Managers).</p>
+<ul>
+<li><strong>Sync Queue tab:</strong> orders captured on terminals while
+offline (local pending queue).</li>
+<li><strong>Server sessions list:</strong> outage windows with duration,
+order count, gross total.</li>
+<li><strong>Session detail modal:</strong> the orders inside a
+window.</li>
+<li><strong>Actions:</strong> trigger <strong>sync</strong>, view
+<strong>heartbeat</strong> status of terminals.</li>
+</ul>
+<p>Full offline story in Section 20.</p>
+<h3 id="ai-expansion">18.14 AI Expansion</h3>
+<p><strong>Navigation:</strong> <code>SYSTEM → AI Expansion</code> —
+market intelligence for franchise growth.</p>
+<p>Step 1: Configure target city and preferences.</p>
+<p>Step 2: Run the market analysis.</p>
+<p>Step 3: Review the <strong>opportunity score</strong>, competitor
+list, verdict and <strong>ranked opportunities</strong>.</p>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Results depend on the data sources
+configured for your installation; treat them as advisory input, not a
+guarantee.</p>
+</blockquote>
+<h3 id="help-center">18.15 Help Center</h3>
+<p><strong>Navigation:</strong> <code>Help &amp; Support</code> /
+<code>Help Center</code> — searchable FAQ categories, contact options
+(WhatsApp, phone, email) and a <strong>support ticket</strong> form.</p>
+<hr />
+<h2 id="printing-churi-print-service">19. Printing (Churi Print
+Service)</h2>
+<h3 id="how-printing-works">19.1 How printing works</h3>
+<p>Printing uses a <strong>three-tier fallback</strong> — the first
+available tier wins:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Mechanism</th>
+<th>Requirements</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Churi Print Service</strong> (local helper app)</td>
+<td>Service installed &amp; running on the billing PC</td>
+<td>Silent print — no browser dialog</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>QZ Tray</strong></td>
+<td>QZ Tray + Java installed; printer name saved in the app settings
+(<code>churi_printer_name</code>)</td>
+<td>Silent print</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Browser print</strong> (<code>window.open</code> +
+print)</td>
+<td>Nothing extra</td>
+<td>A print dialog opens — choose the printer and click Print</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What gets printed:</strong></p>
+<ul>
+<li><strong>KOT (Kitchen Order Ticket):</strong> 80 mm, order number,
+order-type badge (DINE-IN / TAKEAWAY / SWIGGY / ZOMATO), table, time,
+notes, item names with quantities (vegetarian marks, <strong>no
+prices</strong>).</li>
+<li><strong>Receipt:</strong> brand header/footer, GSTIN, FSSAI,
+CGST/SGST split, discount, payment method, order type/table, optional
+QR/UPI code, logo, branch address/phone — all controlled by Receipt
+Settings (Section 18.6).</li>
+</ul>
+<h3 id="installing-the-print-service">19.2 Installing the print
+service</h3>
+<p>Step 1: Download the installer from your administrator (the Windows
+setup is also published under the dashboard’s <code>downloads</code>
+folder).</p>
+<p>Step 2: Run the installer (it allows choosing the install folder and
+adds a Start-menu shortcut).</p>
+<p>Step 3: Launch <strong>Churi Print Service</strong>. It minimises to
+the <strong>system tray</strong> (icon near the clock) and starts a
+local service on <strong>port 7676</strong> (bound to this computer
+only).</p>
+<p>Step 4: By default the service <strong>starts automatically with your
+computer</strong> (change this in its settings).</p>
+<p><strong>Requirements:</strong> Windows 10/11 (also buildable for
+macOS/Linux); the thermal printer must already be installed in
+Windows.</p>
+<h3 id="choosing-printers">19.3 Choosing printers</h3>
+<p>Step 1: Right-click the tray icon → open
+<strong>Settings</strong>.</p>
+<p>Step 2: Pick the <strong>Receipt Printer</strong> from the list of OS
+printers (leave empty to use the system default printer).</p>
+<p>Step 3: Pick the <strong>KOT Printer</strong> (leave empty = same as
+the receipt printer).</p>
+<p>Step 4: Optionally untick <strong>auto-start</strong>.</p>
+<p>Step 5: Click <strong>Save</strong>.</p>
+<p><code>[SCREENSHOT REQUIRED — Churi Print Service settings window]</code></p>
+<h3 id="test-printing">19.4 Test printing</h3>
+<p>In the service settings, click <strong>Test Receipt</strong> and
+<strong>Test KOT</strong> (and <strong>Refresh printers</strong> if your
+printer was installed after the service started).</p>
+<p>From the POS: use the <strong>direct print</strong> action in the KOT
+preview, or complete a <strong>Pay &amp; Print</strong> on a test
+order.</p>
+<p><strong>Verification checklist:</strong> - ☐ Printer feeds paper and
+prints crisp 80 mm content - ☐ Receipt shows correct brand, GST number
+and totals - ☐ KOT shows items and quantities without prices - ☐ VAT/GST
+split matches the bill</p>
+<h3 id="receipt-layout-settings">19.5 Receipt layout settings</h3>
+<p>See Section 18.6 (Receipt Settings) — header, footer, logo, QR,
+GST/FSSAI, paper size 58/80 mm, display toggles, live preview.</p>
+<h3 id="printing-troubleshooting">19.6 Printing troubleshooting</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nothing prints silently</td>
+<td>Service not running</td>
+<td>Start Churi Print Service; check the tray icon; check
+<code>http://127.0.0.1:7676/status</code> opens</td>
+</tr>
+<tr>
+<td>Browser print dialog appears</td>
+<td>Tier 1/2 unavailable → fallback tier 3</td>
+<td>Install/start the print service (or QZ Tray)</td>
+</tr>
+<tr>
+<td>Wrong printer prints</td>
+<td>Printer selection empty/default</td>
+<td>Set Receipt/KOT printer explicitly in service settings; click
+Refresh printers</td>
+</tr>
+<tr>
+<td>Cut/garbled text</td>
+<td>Printer driver/paper mismatch</td>
+<td>Verify 80 mm paper, reinstall driver, test from Windows first</td>
+</tr>
+<tr>
+<td>Service works for one app but not another</td>
+<td>Port conflict (7676 in use)</td>
+<td>Close the conflicting program or change nothing else — contact
+support</td>
+</tr>
+<tr>
+<td>Prints cut off</td>
+<td>Wrong paper size in OS</td>
+<td>Set the OS printer to 80 mm (or 58 mm matching Receipt
+Settings)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="offline-operations">20. Offline Operations</h2>
+<p>The system is designed to keep billing during internet outages.</p>
+<p><strong>During an outage:</strong></p>
+<ul>
+<li>The POS continues to work from cached menu/inventory data.</li>
+<li>Orders are stored <strong>locally on that terminal</strong> with a
+unique offline ID.</li>
+<li>Held bills remain local (Section 7.10).</li>
+</ul>
+<p><strong>When connectivity returns:</strong></p>
+<ul>
+<li>Queued orders sync automatically
+(<code>Offline Sessions → Sync</code>).</li>
+<li>The backend re-agrees the outage window (about a 60-minute grace)
+and <strong>deduplicates</strong> by offline ID — a repeated submission
+returns the original order instead of creating a duplicate.</li>
+<li>Terminals send periodic <strong>heartbeats</strong> so you can see
+which are online.</li>
+</ul>
+<p><strong>Monitoring:</strong> <code>Offline Orders</code> page shows
+the sync queue, server sessions (duration, order count, gross total) and
+session details.</p>
+<p><strong>Branch configuration:</strong> each branch has
+<strong>offline orders enabled</strong> and an <strong>offline threshold
+hours</strong> setting; offline mode reads branch configuration from the
+public branch-config endpoint.</p>
+<blockquote>
+<p>⚠️ <strong>Warning:</strong> Do not clear browser storage while
+offline orders are pending. Reconcile the queue the same day so revenue
+and stock stay accurate.</p>
+</blockquote>
+<hr />
+<h2 id="notifications">21. Notifications</h2>
+<h3 id="in-app-notifications-bell-icon">In-app notifications (bell
+icon)</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low / critical / out-of-stock</td>
+<td>Item name, quantity on hand, threshold, unit, alert type</td>
+</tr>
+<tr>
+<td>Integration order failure</td>
+<td>Order could not be ingested from a channel</td>
+</tr>
+<tr>
+<td>Order events</td>
+<td>New online orders pushed in real time (sound/toast on POS)</td>
+</tr>
+<tr>
+<td>Table updates</td>
+<td>Table status changes pushed to floor screens</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Actions in the bell panel:</strong> mark one as read,
+<strong>mark all read</strong>, <strong>clear all</strong>, delete one.
+Notifications are scoped: Super Admin sees all, owners see their
+franchise, staff see their branch.</p>
+<h3 id="email-notifications">Email notifications</h3>
+<p>Sent through SMTP (configured in Integrations or server settings):
+OTP emails, welcome/onboarding emails, low-stock alerts to recipients,
+demo-booking emails, and <strong>invoice PDFs emailed to tenants on
+payment</strong>.</p>
+<h3 id="whatsapp-notifications">WhatsApp notifications</h3>
+<p>Automatic order-status messages using approved templates (Section
+18.12). Status of each message is visible in the WhatsApp
+<strong>Logs</strong> tab.</p>
+<h3 id="toast-messages-top-right">Toast messages (top-right)</h3>
+<table>
+<thead>
+<tr>
+<th>Colour</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Green</td>
+<td>Action succeeded (“Bill held (#…)”, “Saved”)</td>
+</tr>
+<tr>
+<td>Blue/neutral</td>
+<td>Informational</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Action failed — read the message; it states the reason</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> The system does not send SMS. Customer
+messaging happens over WhatsApp (where configured).</p>
+</blockquote>
+<hr />
+<h2 id="error-reference">22. Error Reference</h2>
+<h3
+id="invalid-credentials-login-refused"><code>Invalid credentials</code>
+/ login refused</h3>
+<p><strong>Meaning:</strong> Wrong email/username or password; or the
+account is inactive/deleted; or the franchise is suspended.
+<strong>Solution:</strong> Check the identifier (username <em>or</em>
+email works). Wait if you recently failed 5 times (15-minute cool-down).
+Ask your administrator to <strong>Reset Password</strong>. <strong>If it
+continues:</strong> provide your username, approximate time and the
+exact message to support.</p>
+<h3
+id="too-many-requests-retry-after-x-seconds"><code>429 Too Many Requests</code>
+(retry after X seconds)</h3>
+<p><strong>Meaning:</strong> Login rate limit — 5 failed attempts per
+account or 100 per network address within 15 minutes.
+<strong>Solution:</strong> Wait for the shown retry time; use the
+correct password; avoid repeated attempts from shared computers.</p>
+<h3
+id="access-denied-forbidden-on-a-page"><code>Access Denied / Forbidden</code>
+on a page</h3>
+<p><strong>Meaning:</strong> Your role lacks the permission for that
+path, or you are acting on another branch’s data.
+<strong>Solution:</strong> Return to the dashboard and use the sidebar
+items shown for your role. If you need the page, ask an administrator to
+enable the permission in <strong>User Roles</strong>.</p>
+<h3
+id="franchise-inactive-read-only-mode-banner-billing-suspended-operations-suspended"><code>Franchise Inactive (Read-Only Mode)</code>
+banner / <code>BILLING SUSPENDED</code> /
+<code>OPERATIONS SUSPENDED</code></h3>
+<p><strong>Meaning:</strong> The franchise is inactive
+(subscription/licence issue). Viewing is allowed, changes are blocked.
+<strong>Solution:</strong> Franchise owner should open
+<strong>Subscriptions</strong> and renew/reactivate. Branch staff should
+contact the owner.</p>
+<h3 id="session-expired"><code>Session expired</code></h3>
+<p><strong>Meaning:</strong> The login token expired (sessions last 1
+day) or you logged out elsewhere. <strong>Solution:</strong> Log in
+again. Check the last order in <strong>Orders</strong> before
+re-billing.</p>
+<h3 id="couponoffer-not-applied">Coupon/offer not applied</h3>
+<p><strong>Meaning:</strong> Code is inactive, expired, usage limit
+reached, below the minimum order amount, not valid for this branch, or
+the percentage is capped by <em>max discount</em>.
+<strong>Solution:</strong> Verify the offer in <strong>Offers &amp;
+Discounts</strong>; bill without the coupon if invalid.</p>
+<h3
+id="order-total-cannot-be-less-than-amount-already-paid"><code>Order total cannot be less than amount already paid</code></h3>
+<p><strong>Meaning:</strong> You tried to reduce an order below its
+captured payment. <strong>Solution:</strong> Keep the payment as credit,
+or cancel the order and issue a refund (Sections 8.4, 15.3).</p>
+<h3 id="refund-rejected-self-approval-not-allowed">Refund rejected:
+<code>Self-approval not allowed</code></h3>
+<p><strong>Meaning:</strong> The person who created a refund cannot
+approve it. <strong>Solution:</strong> Another authorised user
+(manager/accountant) approves it.</p>
+<h3
+id="payment-gateway-not-configured"><code>Payment gateway not configured</code></h3>
+<p><strong>Meaning:</strong> No active Razorpay/Stripe configuration
+(needed for subscription payments and guest online payments).
+<strong>Solution:</strong> Super Admin configures the payment
+integration (Section 18.11) and tests it.</p>
+<h3 id="stock-deduction-did-not-happen">Stock deduction did not
+happen</h3>
+<p><strong>Meaning:</strong> The item has no <strong>recipe</strong>
+configured, or stock was already deducted (each order deducts only
+once), or stock is at zero. <strong>Solution:</strong> Add recipe
+ingredients to the menu item; check the item’s <strong>History</strong>
+for existing movements.</p>
+<h3 id="duplicatemissing-offline-orders">Duplicate/missing offline
+orders</h3>
+<p><strong>Meaning:</strong> Orders taken during an outage are still in
+the local queue, or a sync is in progress. <strong>Solution:</strong>
+Open <strong>Offline Orders</strong> and trigger sync; each offline
+order’s unique ID guarantees it is created exactly once.</p>
+<h3 id="page-not-found"><code>404 — Page Not Found</code></h3>
+<p><strong>Meaning:</strong> The address is wrong, or you followed a
+link to a page that does not exist in this build (see Section 32).
+<strong>Solution:</strong> Use the sidebar navigation instead of editing
+URLs.</p>
+<h3 id="print-dialog-appears-nothing-prints">Print dialog appears /
+nothing prints</h3>
+<p>See Section 19.6.</p>
+<h3
+id="integration-order-failed-notification"><code>INTEGRATION ORDER FAILED</code>
+notification</h3>
+<p><strong>Meaning:</strong> An incoming channel order could not be
+processed (credentials, mapping or provider outage).
+<strong>Solution:</strong> Check
+<code>Online Channels → Monitor/Logs</code>, fix mapping/credentials,
+then re-enter the order manually from <strong>Online Orders → New Online
+Order</strong> so the customer is served.</p>
+<hr />
+<h2 id="troubleshooting">23. Troubleshooting</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Possible cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cannot log in</td>
+<td>Wrong credentials</td>
+<td>Re-check username/email and password; retry after the lock-out
+window</td>
+</tr>
+<tr>
+<td>Cannot log in</td>
+<td>Account inactive / franchise suspended</td>
+<td>Administrator reactivates the account/franchise</td>
+</tr>
+<tr>
+<td>Page not loading</td>
+<td>Network issue</td>
+<td>Check internet; the POS can still bill offline (Section 20)</td>
+</tr>
+<tr>
+<td>“Access Denied” on a page</td>
+<td>Missing permission</td>
+<td>Use sidebar-visible pages; ask admin to grant permission in User
+Roles</td>
+</tr>
+<tr>
+<td>Data not visible on a list</td>
+<td>Filters/date range too narrow</td>
+<td>Clear/reset filters; widen the date range</td>
+</tr>
+<tr>
+<td>Menu items missing on POS</td>
+<td>Item marked unavailable/inactive, or wrong category</td>
+<td>Enable the item in Menu; check category tab</td>
+</tr>
+<tr>
+<td>Wrong tax on bill</td>
+<td>GST disabled on branch or rule not active</td>
+<td>Check Tax Rules and the branch GST toggle</td>
+</tr>
+<tr>
+<td>Coupon not working</td>
+<td>Invalid/expired/limit reached</td>
+<td>Check the offer’s dates, usage count and branch list</td>
+</tr>
+<tr>
+<td>Order not on kitchen screen</td>
+<td>KOT not sent (used <em>Save</em> only)</td>
+<td>Re-send from the order (KOT actions) or call the kitchen</td>
+</tr>
+<tr>
+<td>No sound on new orders</td>
+<td>Device muted / browser notification blocked</td>
+<td>Unmute; allow notifications; test with a new order</td>
+</tr>
+<tr>
+<td>Receipt prints blank/wrong</td>
+<td>Printer default or paper mismatch</td>
+<td>Configure Receipt/KOT printer in the print service; test print</td>
+</tr>
+<tr>
+<td>Payment failed</td>
+<td>Gateway outage or misconfiguration</td>
+<td>Check the integration status; record as <em>Due</em> and settle
+later</td>
+</tr>
+<tr>
+<td>Cash drawer variance</td>
+<td>Missed refund/expense or miscount</td>
+<td>Review the drawer history and refunds for the session</td>
+</tr>
+<tr>
+<td>Stock looks wrong</td>
+<td>Deduction missing/never configured</td>
+<td>Check item recipes and movement history; adjust stock</td>
+</tr>
+<tr>
+<td>Notifications not arriving</td>
+<td>SMTP not configured</td>
+<td>Super Admin: Integrations → Email → <strong>Test</strong> → fix
+credentials</td>
+</tr>
+<tr>
+<td>WhatsApp messages not sending</td>
+<td>Template/token issue</td>
+<td>Super Admin: WhatsApp console → Config/Logs; send a test
+message</td>
+</tr>
+<tr>
+<td>Terminal shows offline banner</td>
+<td>Internet down</td>
+<td>Keep billing; reconcile at <strong>Offline Orders</strong> after
+reconnect</td>
+</tr>
+<tr>
+<td>Session keeps expiring</td>
+<td>1-day token expiry</td>
+<td>Log in again; keep <em>Remember me</em> on private devices</td>
+</tr>
+<tr>
+<td>App feels stuck after restore</td>
+<td>Restore in progress</td>
+<td>Wait for the backup status to reach COMPLETED; refresh</td>
+</tr>
+<tr>
+<td>Browser data cleared → carts gone</td>
+<td>Held bills are device-local</td>
+<td>Held bills cannot be recovered — recreate the order</td>
+</tr>
+<tr>
+<td>Two terminals, different menus</td>
+<td>Menus scoped per branch</td>
+<td>Use <strong>Transfer Menu</strong> to sync menus between
+branches</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="security-best-practices">24. Security Best Practices</h2>
+<p>🔐 <strong>Passwords</strong> - Use a long, unique password per
+person. Never share it. - Default/demo passwords shipped with seed data
+must be <strong>changed on first login</strong> — treat them as public.
+- Never write passwords on the counter, on receipts, or in group
+chats.</p>
+<p>🔐 <strong>Accounts are personal</strong> - Never share one login
+between cashiers — refunds, voids and audit entries must be
+attributable. - Deactivate a user immediately when they leave
+(<strong>Users → status = INACTIVE</strong>).</p>
+<p>🔐 <strong>Sessions</strong> - Lock the app (<strong>Ctrl/⌘ +
+L</strong>) when you step away; log out fully at shift end. - Avoid
+<em>Remember me</em> on public/shared computers.</p>
+<p>🔐 <strong>Permissions</strong> - Grant the <strong>least</strong>
+permission that lets someone do their job (edit switches in <strong>User
+Roles</strong>). - Do not hand Super Admin credentials to operators.</p>
+<p>🔐 <strong>Sensitive data</strong> - API keys, SMTP passwords,
+WhatsApp tokens and gateway secrets live encrypted in the system — never
+copy them into tickets, emails or screenshots. - Customer phone numbers
+are personal data — use exports and bulk messaging responsibly.</p>
+<p>🔐 <strong>Payments</strong> - Never ask a customer to share card
+details/OTP. - Reconcile the cash drawer daily; investigate variances
+promptly.</p>
+<p>🔐 <strong>Admin operations</strong> - Take a
+<strong>snapshot</strong> before restores, bulk imports, tax changes or
+menu bulk uploads. - Review <strong>Audit Logs</strong> regularly for
+unexpected changes.</p>
+<p>🔐 <strong>Suspicious activity</strong> - Unexpected login prompts,
+strange orders, or unknown users in Audit Logs → change passwords,
+disable the account, and contact support (Section 28).</p>
+<hr />
+<h2 id="data-management-export-backup-restore-recycle-bin">25. Data
+Management (Export, Backup, Restore, Recycle Bin)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Where</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Export CSV/Excel</strong></td>
+<td>Data Export, Reports (Download Excel), Attendance Reports (CSV),
+Audit Logs (Export CSV)</td>
+<td>Scope filters apply; contains sensitive data</td>
+</tr>
+<tr>
+<td><strong>Bulk import</strong></td>
+<td>Menu (Bulk Upload), Branches (bulk upload), Franchises (template →
+preview → confirm)</td>
+<td>Always use the downloaded template</td>
+</tr>
+<tr>
+<td><strong>Backup snapshot</strong></td>
+<td>Backup &amp; Recovery → <strong>Take Snapshot</strong></td>
+<td>FULL / DATA-ONLY / ASSETS-ONLY; scopes
+System/Organization/Branch</td>
+</tr>
+<tr>
+<td><strong>Scheduled backup</strong></td>
+<td>Backup &amp; Recovery schedule settings</td>
+<td>Automatic snapshots on a timer</td>
+</tr>
+<tr>
+<td><strong>Download backup</strong></td>
+<td>Backup &amp; Recovery → Download</td>
+<td>Keep copies off-server in a secure place</td>
+</tr>
+<tr>
+<td><strong>Restore</strong></td>
+<td>Backup &amp; Recovery → preview → execute (or upload a file)</td>
+<td><strong>Overwrites data — dangerous</strong></td>
+</tr>
+<tr>
+<td><strong>Delete a record</strong></td>
+<td>Row delete → <strong>Recycle Bin</strong></td>
+<td>Restorable</td>
+</tr>
+<tr>
+<td><strong>Delete forever</strong></td>
+<td>Recycle Bin → Delete Forever</td>
+<td><strong>Irreversible</strong></td>
+</tr>
+<tr>
+<td><strong>Data retention</strong></td>
+<td>Backups expire automatically after their retention period; expired
+backups are cleaned up</td>
+<td>Old snapshots disappear from the list</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Warning — destructive operations:</strong> <em>Delete
+Forever</em>, <em>Restore</em>, franchise/branch deletion and bulk
+imports can permanently change or destroy data. Snapshot first, operate
+in a quiet window, and verify afterwards.</p>
+</blockquote>
+<hr />
+<h2 id="frequently-asked-questions">26. Frequently Asked Questions</h2>
+<p><strong>How do I reset my password?</strong> Ask your administrator —
+Users → Reset Password (Section 18.1). The login screen’s <em>Forgot
+password?</em> link explains this.</p>
+<p><strong>How does a manager create a new user?</strong>
+<code>Users → Add User</code> → fill name, username, email, password,
+role, branch → Save (Section 18.1).</p>
+<p><strong>Why can’t I see a feature?</strong> Your role does not have
+that permission. Menus are hidden automatically. An administrator can
+enable it in <strong>User Roles</strong>.</p>
+<p><strong>How do I export data?</strong> Use <strong>Data
+Export</strong> (choose type + date range) or the export buttons on
+Reports/Attendance/Audit pages.</p>
+<p><strong>What happens if my internet fails?</strong> Billing
+continues; orders queue locally on that terminal and sync automatically
+when back online. Reconcile at <strong>Offline Orders</strong>.</p>
+<p><strong>How do I cancel an operation/order?</strong> Orders → open
+the order → <strong>Cancel</strong> with a reason. If it was paid, a
+refund request is created automatically. To discard an unsent cart, use
+<strong>Void Cart</strong> with a reason.</p>
+<p><strong>How do I start/end a shift with cash?</strong> Open the
+drawer with an opening balance (Cash Drawer or POS <strong>Open
+Drawer</strong>); close it with the counted amount to see the
+variance.</p>
+<p><strong>How do I print a duplicate receipt?</strong> Open the order
+and use its receipt/view action (<strong>pos.access</strong>
+permission), then print.</p>
+<p><strong>How do I add a discount?</strong> Type a coupon code (Offers)
+at billing, or use the discount field. The server validates it.</p>
+<p><strong>How do I seat a reservation?</strong> Reservations → find the
+booking → <strong>Seat Guest</strong>.</p>
+<p><strong>How do I move an order to another table?</strong> Table
+Management → <strong>Move KOT / Transfer Table</strong>.</p>
+<p><strong>How do I contact support?</strong> WhatsApp/phone <strong>+91
+8699524005</strong> (linked from the login screen, POS and Help Center),
+or the Help Center ticket form (Section 28).</p>
+<p><strong>Can I use the POS on a tablet/phone?</strong> The layout
+adapts to smaller screens, but a desktop/laptop is recommended for busy
+counters.</p>
+<p><strong>Where are held bills stored?</strong> Locally in that
+browser/device only (Section 7.10).</p>
+<p><strong>How do I know who changed a price?</strong> Check
+<strong>Audit Logs</strong> (search by module/date).</p>
+<p><strong>How do I stop an inactive franchise from billing?</strong> It
+is automatic: inactive franchises show <em>BILLING SUSPENDED</em>;
+suspend/reactivate from the Franchise page (Super Admin).</p>
+<hr />
+<h2 id="glossary">27. Glossary</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>POS</strong></td>
+<td>Point of Sale — the billing terminal</td>
+</tr>
+<tr>
+<td><strong>KOT</strong></td>
+<td>Kitchen Order Ticket — the slip the kitchen works from</td>
+</tr>
+<tr>
+<td><strong>KDS</strong></td>
+<td>Kitchen Display System — the kitchen’s screen</td>
+</tr>
+<tr>
+<td><strong>Tenant / Franchise</strong></td>
+<td>One franchise organisation owning one or more branches (stores)</td>
+</tr>
+<tr>
+<td><strong>Branch / Outlet</strong></td>
+<td>A single restaurant location</td>
+</tr>
+<tr>
+<td><strong>Super Admin</strong></td>
+<td>Operator of the whole platform</td>
+</tr>
+<tr>
+<td><strong>Role</strong></td>
+<td>A named set of permissions (7 roles)</td>
+</tr>
+<tr>
+<td><strong>Permission</strong></td>
+<td>A single on/off capability (e.g. <code>orders.cancel</code>)</td>
+</tr>
+<tr>
+<td><strong>SKU</strong></td>
+<td>Stock Keeping Unit — unique inventory code</td>
+</tr>
+<tr>
+<td><strong>Recipe</strong></td>
+<td>Menu item → inventory ingredient mapping used for stock
+deduction</td>
+</tr>
+<tr>
+<td><strong>Combo</strong></td>
+<td>A bundle of menu items sold as one product</td>
+</tr>
+<tr>
+<td><strong>Offer/Coupon</strong></td>
+<td>A discount code validated server-side at billing</td>
+</tr>
+<tr>
+<td><strong>AOV</strong></td>
+<td>Average Order Value</td>
+</tr>
+<tr>
+<td><strong>GST</strong></td>
+<td>Goods and Services Tax (India)</td>
+</tr>
+<tr>
+<td><strong>ITC</strong></td>
+<td>Input Tax Credit — tax paid on purchases that offsets output
+tax</td>
+</tr>
+<tr>
+<td><strong>GSTR-1 / GSTR-3B</strong></td>
+<td>GST return forms</td>
+</tr>
+<tr>
+<td><strong>FSSAI</strong></td>
+<td>Food Safety and Standards Authority of India (licence number printed
+on bills)</td>
+</tr>
+<tr>
+<td><strong>Drawer / Till</strong></td>
+<td>The cash drawer session with opening/closing counts</td>
+</tr>
+<tr>
+<td><strong>Variance</strong></td>
+<td>Difference between expected and counted cash</td>
+</tr>
+<tr>
+<td><strong>Void</strong></td>
+<td>Discarding a cart/bill before completion, with a reason</td>
+</tr>
+<tr>
+<td><strong>Refund</strong></td>
+<td>Returning money for a paid order (full or partial)</td>
+</tr>
+<tr>
+<td><strong>PO</strong></td>
+<td>Purchase Order — an order placed with a vendor</td>
+</tr>
+<tr>
+<td><strong>Reorder level</strong></td>
+<td>Stock level at which a low-stock alert fires</td>
+</tr>
+<tr>
+<td><strong>QR Ordering</strong></td>
+<td>Guest self-ordering by scanning a table QR code</td>
+</tr>
+<tr>
+<td><strong>Channel</strong></td>
+<td>An online ordering platform (Swiggy, Zomato, Website, WhatsApp,
+QR)</td>
+</tr>
+<tr>
+<td><strong>Settlement</strong></td>
+<td>Payout from a delivery platform for completed orders</td>
+</tr>
+<tr>
+<td><strong>Webhook</strong></td>
+<td>A server-to-server callback used by integrations</td>
+</tr>
+<tr>
+<td><strong>Aggregator</strong></td>
+<td>A delivery marketplace such as Swiggy/Zomato</td>
+</tr>
+<tr>
+<td><strong>Offline session</strong></td>
+<td>A window of time the terminal billed without internet</td>
+</tr>
+<tr>
+<td><strong>Sync</strong></td>
+<td>Sending locally queued offline orders to the server</td>
+</tr>
+<tr>
+<td><strong>Recycle Bin</strong></td>
+<td>Holding area for deleted records (restorable)</td>
+</tr>
+<tr>
+<td><strong>Audit log</strong></td>
+<td>Record of who changed what, when, from where</td>
+</tr>
+<tr>
+<td><strong>PWA</strong></td>
+<td>Progressive Web App — installable web app (Install button)</td>
+</tr>
+<tr>
+<td><strong>JWT / session token</strong></td>
+<td>The login token that expires after 1 day</td>
+</tr>
+<tr>
+<td><strong>SMTP</strong></td>
+<td>The email-sending protocol used for notifications</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="support">28. Support</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phone</strong></td>
+<td>+91 8699524005 (shown on the login screen, POS header and Help
+Center)</td>
+</tr>
+<tr>
+<td><strong>WhatsApp</strong></td>
+<td>https://wa.me/8699524005</td>
+</tr>
+<tr>
+<td><strong>Email</strong></td>
+<td>[Support Email] — the Help Center links
+<code>support@yourpos.com</code>; confirm your deployment’s official
+address</td>
+</tr>
+<tr>
+<td><strong>Support portal</strong></td>
+<td>In-app <strong>Help Center</strong> → submit a support ticket</td>
+</tr>
+<tr>
+<td><strong>Business hours</strong></td>
+<td>[Support Business Hours]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>ℹ️ <strong>Note:</strong> Contact details above are exactly as they
+appear inside the application. Fill in any placeholder marked
+<code>[...]</code> with your organisation’s confirmed details before
+distributing this manual.</p>
+</blockquote>
+<p><strong>When reporting an issue, include:</strong></p>
+<ol type="1">
+<li>Your <strong>username</strong> and <strong>role</strong></li>
+<li><strong>Branch</strong> and franchise name</li>
+<li><strong>Date/time</strong> of the problem (with time zone)</li>
+<li>The <strong>exact error message</strong> (screenshot)</li>
+<li>The <strong>page/URL</strong> and the steps you performed</li>
+<li>Order number(s) involved, if any</li>
+<li>Whether it happened during an <strong>internet outage</strong></li>
+<li>Device and browser used</li>
+<li>Whether a <strong>print</strong> was involved (and which
+printer)</li>
+</ol>
+<p>Never send passwords, OTPs, API keys or customer payment details to
+support.</p>
+<hr />
+<h2 id="quick-reference-guides">29. Quick Reference Guides</h2>
+<pre class="text"><code>BILL A DINE-IN ORDER
+POS → Dine-in → select table → tap items → (coupon) → Pay &amp; Print (F10)
+  → choose tender → confirm → receipt prints, table released
+
+SEND TO KITCHEN ONLY
+POS → add items → KOT Only  (or KOT &amp; Print)
+
+HOLD / RESUME A BILL
+POS → Hold (F8) → later → Resume dialog → Resume
+
+VOID A CART
+POS → Void Cart → enter reason → confirm
+
+OPEN / CLOSE CASH DRAWER
+POS → Open Drawer (enter float)  …  Close Drawer (count cash → variance)
+
+VIEW LIVE ORDERS
+Sidebar → CORE → Orders → filter by status/channel
+
+WORK A KITCHEN TICKET
+CORE → Kitchen Display → Accept → Start cooking (confirms stock deduction)
+  → Mark ready → Ready &amp; serve
+
+ADD A MENU ITEM
+MENU &amp; ITEMS → Menu → Add Item → fill fields → Save
+
+BULK-UPLOAD MENU
+MENU &amp; ITEMS → Menu → Bulk Upload → download template → fill → upload
+
+CREATE AN OFFER
+MENU &amp; ITEMS → Offers &amp; Discounts → New → code/discount/validity/branches → Save
+
+CREATE A PURCHASE ORDER
+INVENTORY &amp; SUPPLY → Purchase Orders → New PO → vendor + items → Save
+  → (on delivery) Receive → Record Payment
+
+ADJUST STOCK
+INVENTORY &amp; SUPPLY → Inventory → Adjust stock → type + qty + reason → Save
+
+REFUND A PAID ORDER
+FINANCE → Refunds / Voids → New Refund → pick order → FULL/PARTIAL → Submit
+  → (approver) Approve → SUCCESS
+
+DAY-END RECONCILIATION
+Cash Drawer → Close (count) → check variance
+  → Reports &amp; Analytics (today) → Backup snapshot
+
+ADD A USER
+Users → Add User → name/username/email/password/role/branch → Save
+
+RESET A USER&#39;S PASSWORD
+Users → row → Reset Password → new password → confirm
+
+CHANGE A ROLE&#39;S PERMISSIONS
+PLATFORM MANAGEMENT → User Roles → role → toggle switches → Save
+
+CUSTOMIZE THE RECEIPT
+ADMINISTRATION → Receipt Settings → branch → header/footer/logo/GST/paper → Save
+
+PRINT TEST
+Churi Print Service (tray icon) → Settings → pick printers → Test Receipt / Test KOT
+
+EXPORT DATA
+Data Export → choose type → date range (+ branch) → Download
+
+RECOVER A DELETED RECORD
+SYSTEM → Recycle Bin → find record → Restore
+
+TAKE A BACKUP
+SYSTEM → Backup &amp; Recovery → Take Snapshot → wait for COMPLETED
+
+GO OFFLINE / COME BACK ONLINE
+Keep billing → after reconnect → Offline Orders → Sync queue → verify</code></pre>
+<hr />
+<h2 id="role-specific-guides">30. Role-Specific Guides</h2>
+<h3 id="super-admin-guide">30.1 Super Admin guide</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Area</th>
+<th>Do this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Platform health</td>
+<td>Dashboard → franchises, MRR, leads</td>
+</tr>
+<tr>
+<td>Franchises</td>
+<td><code>PLATFORM MANAGEMENT → Franchise</code> — create, edit,
+statuses, GST/branding controls</td>
+</tr>
+<tr>
+<td>Plans &amp; billing</td>
+<td>Subscription Plans, Transactions (invoices)</td>
+</tr>
+<tr>
+<td>Access control</td>
+<td>User Roles (permission switches), Users</td>
+</tr>
+<tr>
+<td>Integrations</td>
+<td>Integrations (payments, SMTP, WhatsApp), WhatsApp Notifications
+console, Online Channels credentials</td>
+</tr>
+<tr>
+<td>Oversight</td>
+<td>Audit Logs, Recycle Bin, Backup &amp; Recovery, Offline Orders</td>
+</tr>
+<tr>
+<td>Growth</td>
+<td>Leads &amp; Demos, AI Expansion</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Settings (incl. Invoice &amp; Billing tab), Company profile</td>
+</tr>
+</tbody>
+</table>
+<h3 id="franchise-owner-guide">30.2 Franchise Owner guide</h3>
+<p>Dashboard → branch performance → Menu/Combos/Offers → Online Channels
+→ Inventory/Vendors/POs → Multi Branch → Reports → Tax &amp; Compliance
+→ Subscriptions → Audit Logs → Backup → Settings.</p>
+<h3 id="branch-manager-guide">30.3 Branch Manager guide</h3>
+<pre class="text"><code>OPENING      Dashboard → check tables/reservations → Cash Drawer (open float)
+SERVICE      POS billing · Kitchen Display · Orders · Online Orders
+MID-DAY      Menu availability · Inventory low stock · Vendors/POs
+STAFF        Employees · Attendance · Shifts
+CLOSING      Cash Drawer (close &amp; count) · Refunds check · Reports (today)
+WEEKLY       Purchase orders · Receipt settings · Expenses review</code></pre>
+<h3 id="cashier-guide">30.4 Cashier guide</h3>
+<pre class="text"><code>LOGIN              (own credentials — never shared)
+START SHIFT        POS → Open Drawer → enter float
+BILL               POS → items → KOT (kitchen) → on payment: Pay &amp; Print (F10)
+                   tender: Cash / UPI / Card / Due · Split Payment if needed
+PROBLEMS           Void Cart (with reason) · resume held bills · online orders
+REFUNDS            FINANCE → Refunds / Voids → New Refund Request
+END SHIFT          Close Drawer → count → note variance → Logout
+ALSO               Orders (view own) · Attendance (mark self) · Tax view</code></pre>
+<h3 id="kitchen-staff-guide">30.5 Kitchen Staff guide</h3>
+<pre class="text"><code>LOGIN → CORE → Kitchen Display
+  Accept ticket → Start cooking (confirm ingredient deduction)
+  → Mark ready → Ready &amp; serve
+Check Orders list for context · Menu (view) · Attendance</code></pre>
+<h3 id="inventory-manager-guide">30.6 Inventory Manager guide</h3>
+<pre class="text"><code>Dashboard (low stock/POs) → Inventory (add/adjust/history/bulk)
+→ Vendors (add/pay) → Purchase Orders (create/receive/pay)
+→ Transfers between branches → Attendance</code></pre>
+<h3 id="accountant-guide">30.7 Accountant guide</h3>
+<pre class="text"><code>Dashboard (revenue, GST, refunds) → Reports &amp; Analytics → Orders &amp; Items Summary
+→ Expenses → Cash Drawer → Tax &amp; Compliance (GST, filings, payments)
+→ Refunds / Voids (approve) → Channel Settlements → Attendance Reports → Data Export</code></pre>
+<hr />
+<h2 id="first-day-checklist">31. First-Day Checklist</h2>
+<p><strong>New user (any role):</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Log in with your own
+credentials</label></li>
+<li><label><input type="checkbox" />Lock/unlock the app once (Ctrl/⌘ +
+L) to learn it</label></li>
+<li><label><input type="checkbox" />Find your pages in the sidebar; note
+what is hidden (you lack permission)</label></li>
+<li><label><input type="checkbox" />Open the Dashboard and identify your
+key numbers</label></li>
+<li><label><input type="checkbox" />If you bill: open the POS and take a
+<strong>test order</strong> (KOT → kitchen → payment →
+receipt)</label></li>
+<li><label><input type="checkbox" />If you handle cash: open the drawer
+with the correct float</label></li>
+<li><label><input type="checkbox" />Check notifications
+bell</label></li>
+<li><label><input type="checkbox" />Learn your shortcuts (F1/F2/F8/F10,
+Ctrl/⌘+L)</label></li>
+<li><label><input type="checkbox" />Log out and log back in</label></li>
+<li><label><input type="checkbox" />Save the support number: +91
+8699524005</label></li>
+</ul>
+<p><strong>New administrator (first installation):</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Change the default/demo passwords
+immediately</label></li>
+<li><label><input type="checkbox" />Complete the setup checklist in
+Section 3.8</label></li>
+<li><label><input type="checkbox" />Create one user per person with the
+right role</label></li>
+<li><label><input type="checkbox" />Review role permission
+switches</label></li>
+<li><label><input type="checkbox" />Configure receipt branding, GST and
+payment methods</label></li>
+<li><label><input type="checkbox" />Install and test the print service
+on every billing terminal</label></li>
+<li><label><input type="checkbox" />Open the first cash drawer
+session</label></li>
+<li><label><input type="checkbox" />Run one full test order per order
+type (dine-in, takeaway)</label></li>
+<li><label><input type="checkbox" />Take the first backup
+snapshot</label></li>
+<li><label><input type="checkbox" />Verify Reports reflects the test
+data</label></li>
+</ul>
+<hr />
+<h2 id="known-limitations">32. Known Limitations</h2>
+<p>Documented honestly so users are not surprised (as verified in the
+current build):</p>
+<ol type="1">
+<li><strong>Forgot-password self-service</strong> is not wired to the
+login screen — the supported path is an administrator reset. The
+<code>/forgot-password</code> and <code>/reset-password</code> pages
+exist but are reachable only by direct URL.</li>
+<li><strong>Registration page</strong> (<code>/register</code>) is not
+linked from the login screen; onboarding links are supplied by the
+vendor.</li>
+<li><strong>Held bills are device-local</strong> — they do not travel
+between terminals.</li>
+<li>Some <strong>dashboard footer links</strong> (e.g. a POS history
+link, a GST shortcut) point to addresses that are not registered pages
+and will show <em>Page Not Found</em> — navigate from the sidebar
+instead.</li>
+<li><strong><code>/stock-adjustment</code>, <code>/delivery</code> and
+<code>/ad-builder</code></strong> have no sidebar entries (use direct
+URLs or the in-page actions); the <code>/delivery</code> address
+currently shows the Data Export screen.</li>
+<li><strong>SMS is not supported</strong> — notifications are in-app,
+email and WhatsApp.</li>
+<li>The <strong>Ad Creative Builder</strong> and <strong>AI
+Expansion</strong> outputs depend on configured data sources and are
+advisory.</li>
+<li>Wildcards such as <code>[Support Email]</code> and
+<code>[Support Business Hours]</code> must be completed by your
+organisation before distribution.</li>
+</ol>
+<hr />
+<p><em>End of manual. Documentation version 1.0 — October 2026. Report
+gaps or corrections to [Support Email].</em></p>
+
+    </main>
+
+    <p class="mt-6 text-center text-xs text-slate-400">
+      Bhojan Bandhu POS — User Manual · Documentation v1.0 · October 2026
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const content = document.getElementById('content');
+  const nav = document.getElementById('nav');
+
+  /* ---- build sidebar from the document's own headings ---- */
+  const heads = Array.from(content.querySelectorAll('h2, h3'));
+  const frag = document.createDocumentFragment();
+  const links = [];
+
+  heads.forEach(function (h) {
+    if (!h.id) {
+      h.id = (h.textContent || 'section').toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+    }
+    const a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.className = 'nav-link' + (h.tagName === 'H3' ? ' h3' : '');
+    a.textContent = h.textContent.replace(/\s+/g, ' ').trim();
+    frag.appendChild(a);
+    links.push({ a: a, h: h });
+  });
+  nav.appendChild(frag);
+
+  /* ---- mobile toggle ---- */
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('backdrop');
+  function closeNav() { sidebar.classList.add('-translate-x-full'); backdrop.classList.add('hidden'); }
+  function openNav() { sidebar.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); }
+  document.getElementById('menuBtn').addEventListener('click', openNav);
+  backdrop.addEventListener('click', closeNav);
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) closeNav(); });
+
+  /* ---- print ---- */
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+
+  /* ---- scroll spy ---- */
+  let current = null;
+  function setActive(id) {
+    if (current === id) return;
+    current = id;
+    links.forEach(function (l) { l.a.classList.toggle('active', l.h.id === id); });
+    const active = links.find(function (l) { return l.h.id === id; });
+    if (active) {
+      const box = nav.getBoundingClientRect();
+      const r = active.a.getBoundingClientRect();
+      if (r.top < box.top + 10 || r.bottom > box.bottom - 10) {
+        active.a.scrollIntoView({ block: 'center' });
+      }
+    }
+  }
+  function onScroll() {
+    let id = links.length ? links[0].h.id : null;
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].h.getBoundingClientRect().top <= 90) id = links[i].h.id;
+    }
+    setActive(id);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
